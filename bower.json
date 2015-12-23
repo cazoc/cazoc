@@ -1,0 +1,15 @@
+{
+  "name": "cazoc",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "uikit": "~2.24.3",
+    "highlightjs": "~9.0.0"
+  }
+}
