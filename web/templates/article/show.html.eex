@@ -1,0 +1,43 @@
+<h2>Show article</h2>
+
+<ul>
+
+  <li>
+    <strong>Author:</strong>
+    <%= @article.author_id %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @article.title %>
+  </li>
+
+  <li>
+    <strong>Abstract:</strong>
+    <%= @article.abstract %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @article.body %>
+  </li>
+
+  <li>
+    <strong>Cover:</strong>
+    <%= @article.cover %>
+  </li>
+
+  <li>
+    <strong>Repository:</strong>
+    <%= @article.repository_id %>
+  </li>
+
+  <li>
+    <strong>Published at:</strong>
+    <%= @article.published_at %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: article_path(@conn, :edit, @article) %>
+<%= link "Back", to: article_path(@conn, :index) %>

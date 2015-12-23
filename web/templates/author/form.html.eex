@@ -1,0 +1,77 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :name, class: "control-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :display_name, class: "control-label" %>
+    <%= text_input f, :display_name, class: "form-control" %>
+    <%= error_tag f, :display_name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :icon, class: "control-label" %>
+    <%= text_input f, :icon, class: "form-control" %>
+    <%= error_tag f, :icon %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :url, class: "control-label" %>
+    <%= text_input f, :url, class: "form-control" %>
+    <%= error_tag f, :url %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :email, class: "control-label" %>
+    <%= text_input f, :email, class: "form-control" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :password, class: "control-label" %>
+    <%= text_input f, :password, class: "form-control" %>
+    <%= error_tag f, :password %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :password_tmp, class: "control-label" %>
+    <%= text_input f, :password_tmp, class: "form-control" %>
+    <%= error_tag f, :password_tmp %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :token, class: "control-label" %>
+    <%= text_input f, :token, class: "form-control" %>
+    <%= error_tag f, :token %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :salt, class: "control-label" %>
+    <%= text_input f, :salt, class: "form-control" %>
+    <%= error_tag f, :salt %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :ssh_key, class: "control-label" %>
+    <%= text_input f, :ssh_key, class: "form-control" %>
+    <%= error_tag f, :ssh_key %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :type, class: "control-label" %>
+    <%= number_input f, :type, class: "form-control" %>
+    <%= error_tag f, :type %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

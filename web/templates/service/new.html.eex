@@ -1,0 +1,6 @@
+<h2>New service</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: service_path(@conn, :create) %>
+
+<%= link "Back", to: service_path(@conn, :index) %>

@@ -1,0 +1,6 @@
+<h2>Edit service</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: service_path(@conn, :update, @service) %>
+
+<%= link "Back", to: service_path(@conn, :index) %>

@@ -1,0 +1,73 @@
+<h2>Show author</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @author.name %>
+  </li>
+
+  <li>
+    <strong>Display name:</strong>
+    <%= @author.display_name %>
+  </li>
+
+  <li>
+    <strong>Icon:</strong>
+    <%= @author.icon %>
+  </li>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @author.url %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @author.email %>
+  </li>
+
+  <li>
+    <strong>Password:</strong>
+    <%= @author.password %>
+  </li>
+
+  <li>
+    <strong>Password tmp:</strong>
+    <%= @author.password_tmp %>
+  </li>
+
+  <li>
+    <strong>Token:</strong>
+    <%= @author.token %>
+  </li>
+
+  <li>
+    <strong>Salt:</strong>
+    <%= @author.salt %>
+  </li>
+
+  <li>
+    <strong>Ssh key:</strong>
+    <%= @author.ssh_key %>
+  </li>
+
+  <li>
+    <strong>Repository:</strong>
+    <%= @author.repository_id %>
+  </li>
+
+  <li>
+    <strong>Service:</strong>
+    <%= @author.service_id %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @author.type %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: author_path(@conn, :edit, @author) %>
+<%= link "Back", to: author_path(@conn, :index) %>

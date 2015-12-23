@@ -1,0 +1,50 @@
+<h2>Listing authors</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Display name</th>
+      <th>Icon</th>
+      <th>Url</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Password tmp</th>
+      <th>Token</th>
+      <th>Salt</th>
+      <th>Ssh key</th>
+      <th>Repository</th>
+      <th>Service</th>
+      <th>Type</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for author <- @authors do %>
+    <tr>
+      <td><%= author.name %></td>
+      <td><%= author.display_name %></td>
+      <td><%= author.icon %></td>
+      <td><%= author.url %></td>
+      <td><%= author.email %></td>
+      <td><%= author.password %></td>
+      <td><%= author.password_tmp %></td>
+      <td><%= author.token %></td>
+      <td><%= author.salt %></td>
+      <td><%= author.ssh_key %></td>
+      <td><%= author.repository_id %></td>
+      <td><%= author.service_id %></td>
+      <td><%= author.type %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: author_path(@conn, :show, author), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: author_path(@conn, :edit, author), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: author_path(@conn, :delete, author), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New author", to: author_path(@conn, :new) %>
