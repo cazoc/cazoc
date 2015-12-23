@@ -1,0 +1,40 @@
+<h2>Listing articles</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Author</th>
+      <th>Title</th>
+      <th>Abstract</th>
+      <th>Body</th>
+      <th>Cover</th>
+      <th>Repository</th>
+      <th>Familiy</th>
+      <th>Published at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for article <- @articles do %>
+    <tr>
+      <td><%= article.author_id %></td>
+      <td><%= article.title %></td>
+      <td><%= article.abstract %></td>
+      <td><%= article.body %></td>
+      <td><%= article.cover %></td>
+      <td><%= article.repository_id %></td>
+      <td><%= article.familiy_id %></td>
+      <td><%= article.published_at %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: article_path(@conn, :show, article), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: article_path(@conn, :edit, article), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: article_path(@conn, :delete, article), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New article", to: article_path(@conn, :new) %>

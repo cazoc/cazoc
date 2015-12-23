@@ -16,7 +16,35 @@ defmodule Cazoc.Router do
   scope "/", Cazoc do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", TopController, :index
+    get "/page", PageController, :index
+
+    get    "/login",  SessionController, :new
+    post   "/login",  SessionController, :create
+    delete "/logout", SessionController, :delete
+
+    get  "/new", MyArticleController, :new
+    post "/new", MyArticleController, :create
+    get  "/:name/articles", MyArticleController, :index
+    get "/articles/:id", ArticleController, :show
+    get  "/edit/:id", MyArticleController, :edit
+    post "/update/:id", MyArticleController, :update
+    delete "/delete/:id", MyArticleController, :delete
+
+    get  "/register", RegistrationController, :new
+    post "/register", RegistrationController, :create
+  end
+
+  scope "/admin", Cazoc do
+    pipe_through :browser
+
+    get "/", AdminController, :index
+
+    resources "/authors", AuthorController
+    resources "/repositories", RepositoryController
+    resources "/articles", ArticleController
+    resources "/comments", CommentController
+    resources "/services", ServiceController
   end
 
   # Other scopes may use custom stacks.

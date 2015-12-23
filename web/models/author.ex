@@ -18,8 +18,8 @@ defmodule Cazoc.Author do
     timestamps
   end
 
-  @required_fields ~w(name email password type)
-  @optional_fields ~w(display_name icon url password_tmp token ssh_key)
+  @required_fields ~w(name email password)
+  @optional_fields ~w(display_name icon url password_tmp token ssh_key type)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

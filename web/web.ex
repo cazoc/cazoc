@@ -52,6 +52,8 @@ defmodule Cazoc.Web do
       import Cazoc.Router.Helpers
       import Cazoc.ErrorHelpers
       import Cazoc.Gettext
+
+      import Cazoc.Session, only: [current_author: 1, logged_in?: 1]
     end
   end
 
