@@ -10,6 +10,6 @@
   ],
   "dependencies": {
     "highlightjs": "~9.0.0",
-    "sass-bootstrap": "~3.0.2"
+    "bootstrap": "~3.3.6"
   }
 }

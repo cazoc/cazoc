@@ -1,6 +1,7 @@
 {
   "repository": {},
   "dependencies": {
+    "after-brunch": "0.0.5",
     "babel-brunch": "^6.0.0",
     "brunch": "^2.0.0",
     "clean-css-brunch": ">= 1.0 < 1.8",
@@ -8,6 +9,7 @@
     "jade": "^1.11.0",
     "jade-brunch": "^1.8.2",
     "javascript-brunch": ">= 1.0 < 1.8",
+    "less-brunch": "^1.8.1",
     "riot": "^2.3.12",
     "riot-brunch": "0.0.2",
     "sass-brunch": "^1.9.2",
