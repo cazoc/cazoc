@@ -8,10 +8,9 @@ defmodule Cazoc.MyArticleController do
   plug :scrub_params, "article" when action in [:create, :update]
 
   def index(conn, _params) do
-    name = Session.current_author(conn).name
     articles = Repo.all from article in Article,
            join: author in assoc(article, :author),
-           where: author.name == ^name,
+           where: author.id == ^Session.current_author(conn).id,
            preload: [author: author]
     render(conn, "index.html", articles: articles)
   end

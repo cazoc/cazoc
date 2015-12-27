@@ -15,16 +15,23 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <%= if logged_in?(@conn) do %>
-            <li><%= current_author(@conn).name %></li>
-            <li><%= link "Articles", to: my_article_path(@conn, :index) %></li>
-            <li><%= link "Logout", to: session_path(@conn, :delete), method: :delete %></li>
-          <% else %>
-            <li><%= link "Create a account", to: registration_path(@conn, :new) %></li>
-            <li><%= link "Login", to: session_path(@conn, :new) %></li>
-          <% end %>
+          <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              Menu <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <%= if logged_in?(@conn) do %>
+                <li><%= current_author(@conn).name %></li>
+                <li><%= link "Articles", to: my_article_path(@conn, :index) %></li>
+                <li><%= link "Logout", to: session_path(@conn, :delete), method: :delete %></li>
+              <% else %>
+                <li><%= link "Create a account", to: registration_path(@conn, :new) %></li>
+                <li><%= link "Login", to: session_path(@conn, :new) %></li>
+              <% end %>
+            </ul>
+          </li>
         </ul>
-        <span class="logo"></span>
+        <span class="logo"><%= link "Cazoc", to: top_path(@conn, :index) %></span>
       </div>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
