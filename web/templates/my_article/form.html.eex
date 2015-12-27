@@ -16,23 +16,8 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :abstract, "Abstract", class: "control-label" %>
-    <%= text_input f, :abstract, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :body, "Body", class: "control-label" %>
     <%= textarea f, :body, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :cover, "Cover", class: "control-label" %>
-    <%= text_input f, :cover, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :published_at, "Published at", class: "control-label" %>
-    <%= datetime_select f, :published_at, class: "form-control" %>
   </div>
 
   <div class="form-group">

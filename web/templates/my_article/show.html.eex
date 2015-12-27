@@ -33,11 +33,6 @@
   </li>
 
   <li>
-    <strong>Familiy:</strong>
-    <%= @article.familiy_id %>
-  </li>
-
-  <li>
     <strong>Published at:</strong>
     <%= @article.published_at %>
   </li>

@@ -1,12 +1,18 @@
 defmodule Cazoc.MyArticleController do
   use Cazoc.Web, :controller
+  require Logger
 
   alias Cazoc.Article
+  alias Cazoc.Session
 
   plug :scrub_params, "article" when action in [:create, :update]
 
   def index(conn, _params) do
-    articles = Repo.all(Article)
+    name = Session.current_author(conn).name
+    articles = Repo.all from article in Article,
+           join: author in assoc(article, :author),
+           where: author.name == ^name,
+           preload: [author: author]
     render(conn, "index.html", articles: articles)
   end
 
@@ -16,7 +22,8 @@ defmodule Cazoc.MyArticleController do
   end
 
   def create(conn, %{"article" => article_params}) do
-    changeset = Article.changeset(%Article{}, article_params)
+    article = %Article{author_id: Session.current_author(conn).id}
+    changeset = Article.changeset(article, article_params)
 
     case Repo.insert(changeset) do
       {:ok, _article} ->
@@ -64,4 +71,5 @@ defmodule Cazoc.MyArticleController do
     |> put_flash(:info, "Article deleted successfully.")
     |> redirect(to: my_article_path(conn, :index))
   end
+
 end

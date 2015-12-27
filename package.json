@@ -1,6 +1,5 @@
 {
-  "repository": {
-  },
+  "repository": {},
   "dependencies": {
     "babel-brunch": "^6.0.0",
     "brunch": "^2.0.0",
@@ -11,6 +10,7 @@
     "javascript-brunch": ">= 1.0 < 1.8",
     "riot": "^2.3.12",
     "riot-brunch": "0.0.2",
+    "sass-brunch": "^1.9.2",
     "uglify-js-brunch": ">= 1.0 < 1.8"
   }
 }

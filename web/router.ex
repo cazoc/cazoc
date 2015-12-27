@@ -23,11 +23,11 @@ defmodule Cazoc.Router do
     post   "/login",  SessionController, :create
     delete "/logout", SessionController, :delete
 
-    get  "/new", MyArticleController, :new
-    post "/new", MyArticleController, :create
-    get  "/:name/articles", MyArticleController, :index
-    get "/articles/:id", ArticleController, :show
+    get  "/articles", MyArticleController, :index
     get  "/edit/:id", MyArticleController, :edit
+    get  "/write", MyArticleController, :new
+    post "/write", MyArticleController, :create
+    get  "/articles/:id", MyArticleController, :show
     post "/update/:id", MyArticleController, :update
     delete "/delete/:id", MyArticleController, :delete
 

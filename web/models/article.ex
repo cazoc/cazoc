@@ -13,8 +13,8 @@ defmodule Cazoc.Article do
     timestamps
   end
 
-  @required_fields ~w(title abstract body cover published_at)
-  @optional_fields ~w()
+  @required_fields ~w()
+  @optional_fields ~w(title body abstract cover published_at)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

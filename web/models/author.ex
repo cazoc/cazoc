@@ -1,5 +1,6 @@
 defmodule Cazoc.Author do
   use Cazoc.Web, :model
+  import Ecto.Query
 
   schema "authors" do
     field :name, :string, null: false, uique: true
@@ -14,6 +15,7 @@ defmodule Cazoc.Author do
     field :type, :integer, defaults: 0
     belongs_to :repository, Cazoc.Repository
     has_many :services, Cazoc.Service, on_delete: :fetch_and_delete
+    has_many :articles, Cazoc.Article
 
     timestamps
   end
