@@ -28,7 +28,8 @@ defmodule Cazoc.Router do
     get  "/write", MyArticleController, :new
     post "/write", MyArticleController, :create
     get  "/articles/:id", MyArticleController, :show
-    post "/update/:id", MyArticleController, :update
+    patch "/update/:id", MyArticleController, :update
+    put "/update/:id", MyArticleController, :update
     delete "/delete/:id", MyArticleController, :delete
 
     get  "/register", RegistrationController, :new

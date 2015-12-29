@@ -1,7 +1,7 @@
 <h3><%= @article.title %></h3>
 <p>
-  <%= @article.body %>
+  <%= parse_markdown(@article.body) |> raw %>
 </p>
 
 <%= link "Edit", to: my_article_path(@conn, :edit, @article) %>
-<%= link "Back", to: article_path(@conn, :index) %>
+<%= link "Back", to: my_article_path(@conn, :index) %>
