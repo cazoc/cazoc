@@ -23,6 +23,13 @@ defmodule Cazoc.Router do
     post   "/login",  SessionController, :create
     delete "/logout", SessionController, :delete
 
+    get  "/register", RegistrationController, :new
+    post "/register", RegistrationController, :create
+  end
+
+  scope "/", Cazoc do
+    pipe_through :browser # Use the default browser stack
+
     get  "/articles", MyArticleController, :index
     get  "/edit/:id", MyArticleController, :edit
     get  "/write", MyArticleController, :new
@@ -31,16 +38,12 @@ defmodule Cazoc.Router do
     patch "/update/:id", MyArticleController, :update
     put "/update/:id", MyArticleController, :update
     delete "/delete/:id", MyArticleController, :delete
-
-    get  "/register", RegistrationController, :new
-    post "/register", RegistrationController, :create
   end
 
   scope "/admin", Cazoc do
     pipe_through :browser
 
     get "/", AdminController, :index
-
     resources "/authors", AuthorController
     resources "/repositories", RepositoryController
     resources "/articles", ArticleController
