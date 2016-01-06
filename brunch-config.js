@@ -2,14 +2,13 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      // joinTo: "js/app.js"
-
+      joinTo: "js/app.js"
       // To use a separate vendor.js bundle, specify two files path
       // https://github.com/brunch/brunch/blob/stable/docs/config.md#files
-      joinTo: {
-       "js/app.js": /^(web\/static\/js)/,
-       "js/vendor.js": /^(web\/static\/vendor)|(deps)|(node_modules)|(bower_components)/
-      }
+      // joinTo: {
+      //  "js/app.js": /^(web\/static\/js)/,
+      //  "js/vendor.js": /^(web\/static\/vendor)|(deps)|(node_modules)|(bower_components)/
+      // }
       //
       // To change the order of concatenation of files, explicitly mention here
       // https://github.com/brunch/brunch/tree/master/docs#concatenation
@@ -21,11 +20,11 @@ exports.config = {
       // }
     },
     stylesheets: {
-      // joinTo: "css/app.css"
-      joinTo: {
-       "css/app.css": /^(web\/static\/css)/,
-       "css/vendor.css": /^(web\/static\/vendor)|(deps)|(node_modules)|(bower_components)/
-      }
+      joinTo: "css/app.css"
+      // joinTo: {
+      //  "css/app.css": /^(web\/static\/css)/,
+      //  "css/vendor.css": /^(web\/static\/vendor)|(deps)|(node_modules)|(bower_components)/
+      // }
     },
     templates: {
       joinTo: "js/app.js"
@@ -73,6 +72,6 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: false
   }
 };
