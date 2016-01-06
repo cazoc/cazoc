@@ -38,10 +38,9 @@ defmodule Cazoc.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 1.6.0"},
-     {:earmark, "~> 0.1.19"},
+     {:git_cli, "~> 0.1.0"},
      {:github_oauth, "~> 0.1.1"},
-     {:qiita_ex, "~> 0.0.2"},
-     {:gitex, "~> 0.2.0"}]
+     {:qiita_ex, "~> 0.0.2"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
