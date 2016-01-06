@@ -5,10 +5,9 @@
     <li>
       <p><%= article.inserted_at %></p>
       <%= link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-link btn" %>
-      <!-- <p class="text-right">
-       !--   <%= link "Delete", to: my_article_path(@conn, :delete, article), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-       !-- </p> -->
-      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+      <p class="text-right">
+        <%= link "Delete", to: my_article_path(@conn, :delete, article), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </p>
     </li>
   <% end %>
 </ul>

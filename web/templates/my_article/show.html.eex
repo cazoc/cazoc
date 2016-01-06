@@ -4,4 +4,4 @@
 </p>
 
 <%= link "Edit", to: my_article_path(@conn, :edit, @article) %>
-<%= link "Back", to: article_path(@conn, :index) %>
+<%= link "Back", to: my_article_path(@conn, :index) %>
