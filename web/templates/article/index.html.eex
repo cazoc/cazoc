@@ -5,7 +5,6 @@
     <tr>
       <th>Author</th>
       <th>Title</th>
-      <th>Abstract</th>
       <th>Body</th>
       <th>Cover</th>
       <th>Repository</th>
@@ -19,7 +18,6 @@
     <tr>
       <td><%= article.author_id %></td>
       <td><%= article.title %></td>
-      <td><%= article.abstract %></td>
       <td><%= article.body %></td>
       <td><%= article.cover %></td>
       <td><%= article.repository_id %></td>

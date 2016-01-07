@@ -6,6 +6,8 @@ defmodule Cazoc.Service do
     field :user, :string
     field :token, :string
 
+    belongs_to :author, Cazoc.Author
+
     timestamps
   end
 
