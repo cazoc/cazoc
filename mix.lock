@@ -1,4 +1,7 @@
-%{"certifi": {:hex, :certifi, "0.3.0"},
+%{"calecto": {:hex, :calecto, "0.4.3"},
+  "calendar": {:hex, :calendar, "0.12.1"},
+  "certifi": {:hex, :certifi, "0.3.0"},
+  "combine": {:hex, :combine, "0.7.0"},
   "comeonin": {:hex, :comeonin, "1.6.0"},
   "connection": {:hex, :connection, "1.0.2"},
   "cowboy": {:hex, :cowboy, "1.0.4"},
@@ -18,6 +21,7 @@
   "jsx": {:hex, :jsx, "2.6.2"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
   "phoenix": {:hex, :phoenix, "1.1.0"},
+  "phoenix_calendar": {:hex, :phoenix_calendar, "0.1.2"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "2.0.0"},
   "phoenix_html": {:hex, :phoenix_html, "2.3.0"},
   "phoenix_live_reload": {:hex, :phoenix_live_reload, "1.0.1"},
@@ -27,4 +31,7 @@
   "postgrex": {:hex, :postgrex, "0.10.0"},
   "qiita_ex": {:hex, :qiita_ex, "0.0.2"},
   "ranch": {:hex, :ranch, "1.2.0"},
-  "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"}}
+  "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
+  "timex": {:hex, :timex, "1.0.0"},
+  "timex_ecto": {:hex, :timex_ecto, "0.7.0"},
+  "tzdata": {:hex, :tzdata, "0.5.6"}}

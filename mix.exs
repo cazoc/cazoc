@@ -19,7 +19,7 @@ defmodule Cazoc.Mixfile do
   def application do
     [mod: {Cazoc, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :qiita_ex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :qiita_ex, :comeonin, :tzdata]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,7 +40,9 @@ defmodule Cazoc.Mixfile do
      {:comeonin, "~> 1.6.0"},
      {:git_cli, "~> 0.1.0"},
      {:github_oauth, "~> 0.1.1"},
-     {:qiita_ex, "~> 0.0.2"}]
+     {:qiita_ex, "~> 0.0.2"},
+     {:timex, "~> 1.0.0"},
+     {:timex_ecto, "~> 0.7.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

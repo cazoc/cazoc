@@ -5,11 +5,11 @@ defmodule Cazoc.Article do
     field :title, :string
     field :body, :string
     field :cover, :string
-    field :published_at, Ecto.DateTime
+    field :published_at, Timex.Ecto.DateTime
     belongs_to :author, Cazoc.Author
     belongs_to :repository, Cazoc.Repository
 
-    timestamps
+    timestamps usec: true
   end
 
   @required_fields ~w(title published_at)

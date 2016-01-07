@@ -3,7 +3,7 @@
 <ul class="list-unstyled">
   <%= for article <- @articles do %>
     <li>
-      <p><%= article.inserted_at %></p>
+      <p><%= article.inserted_at |> Timex.DateFormat.format!("%Y-%m-%d %H:%M:%S", :strftime) %></p>
       <%= link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-link btn" %>
       <%= link tag(:span, class: "glyphicon glyphicon-trash", "aria-hidden": "true"), to: my_article_path(@conn, :delete, article), method: :delete, data: [confirm: "Are you sure?"], class: "" %>
     </li>

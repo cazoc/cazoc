@@ -48,7 +48,7 @@ defmodule Cazoc.Author do
   @doc """
   Repository path
   """
-  def path do
-    "repositories" <> name
+  def path(model) do
+    Path.join("repositories", model.name)
   end
 end
