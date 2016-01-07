@@ -20,4 +20,61 @@ import "deps/phoenix_html/web/static/js/phoenix_html"
 
 // import socket from "./socket"
 
-hljs.initHighlightingOnLoad();
+window.addEventListener("DOMContentLoaded", main);
+window.addEventListener("hashchange", main);
+
+var get = $.get;
+marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: true,
+    pedantic: false,
+    sanitize: false,
+    smartLists: false,
+    smartypants: false
+});
+
+function main(){
+    var name = "";
+    if ( location.hash.length <= 1 ) {
+        name = "index.md";
+        location.hash = "#" + name;
+    } else {
+        name = location.hash.slice(1);
+    }
+    // ページ内リンクなのでhistory.pushStateする必要はない
+    get(name).catch(function(){
+        return Promise.resolve("# 404 page not found");
+    }).then(function(text){
+        // markedにlatexタグ食わせると&<>とかがエスケープされるので<pre />で包んで退避
+        // ちなみに```mathとかで<pre><code class="lang-math">になったのはエスケープされるので注意
+        var PREFIX = "<pre><code class=\"lang-math\">";
+        var SUFFIX = "</code></pre>";
+        var reg = new RegExp(
+            ("(?:" + PREFIX + "([\\s\\S]*?)" + SUFFIX + ")")
+                .replace(/\//g, "\/"),
+            "gm");
+        var wraped = text.split("$$")
+            .reduce(function(sum, str, i){
+                return i % 2 === 0 ?
+                    sum + str :
+                    sum + PREFIX + str + SUFFIX;
+            }, "");
+        var html = marked(wraped);
+        // 退避したlatexタグを$$で包み直す
+        var _html = html;
+        var tuple = null;
+        while(tuple = reg.exec(html)){
+            _html = _html.split(tuple[0]).join("$$" + tuple[1] + "$$");
+        }
+        // mathjaxで処理
+        var div = document.getElementById("content");
+        div.innerHTML = _html;
+        MathJax.Hub.Configured();
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    }).catch(function(err){
+        // jqueryのpromiseはthenの中でエラー吐いて止まってもconsoleに表示してくれないので表示させる
+        console.error(err);
+    });
+}

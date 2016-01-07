@@ -14,7 +14,6 @@ defmodule Cazoc.RegistrationController do
   Create a author
   """
   def create(conn, %{"author" => author_params}) do
-    # Dict.put(author_params, "salt", "salt")
     changeset = Author.changeset(%Author{}, author_params)
 
     case Author.create(changeset, Cazoc.Repo) do

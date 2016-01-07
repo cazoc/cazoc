@@ -10,6 +10,7 @@
   ],
   "dependencies": {
     "highlightjs": "~9.0.0",
-    "bootstrap": "~3.3.6"
+    "bootstrap": "~3.3.6",
+    "marked": "~0.3.5"
   }
 }

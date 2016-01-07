@@ -1,3 +1,20 @@
 <h3><%= @article.title %></h3>
 <%= link "Edit", to: my_article_path(@conn, :edit, @article) %>
 <%= link "Back", to: my_article_path(@conn, :index) %>
+
+<script type="text/x-mathjax-config">
+ MathJax.Hub.Config({
+     skipStartupTypeset: true,
+     extensions: ["tex2jax.js"],
+     jax: ["input/TeX", "output/HTML-CSS"],
+     tex2jax: {
+         inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+         displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+         processEscapes: true
+     },
+     "HTML-CSS": {
+         availableFonts: ["TeX"]
+     }
+ });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured"></script>
