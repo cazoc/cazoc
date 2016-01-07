@@ -47,6 +47,13 @@ defmodule Cazoc.Author do
   end
 
   @doc """
+  Repository path
+  """
+  def path do
+    "repositories" <> name
+  end
+
+  @doc """
   Hashed password
   """
   defp hashed_password(password) do
