@@ -13,11 +13,6 @@
   </li>
 
   <li>
-    <strong>Abstract:</strong>
-    <%= @article.abstract %>
-  </li>
-
-  <li>
     <strong>Body:</strong>
     <%= @article.body %>
   </li>

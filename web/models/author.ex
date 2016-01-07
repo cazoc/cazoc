@@ -1,6 +1,5 @@
 defmodule Cazoc.Author do
   use Cazoc.Web, :model
-  import Ecto.Query
 
   schema "authors" do
     field :name, :string, null: false, uique: true
@@ -14,7 +13,7 @@ defmodule Cazoc.Author do
     field :ssh_key, :string
     field :type, :integer, defaults: 0
     belongs_to :repository, Cazoc.Repository
-    has_many :services, Cazoc.Service, on_delete: :fetch_and_delete
+    has_many :services, Cazoc.Service, on_delete: :delete_all
     has_many :articles, Cazoc.Article
 
     timestamps
@@ -42,7 +41,7 @@ defmodule Cazoc.Author do
   """
   def create(changeset, repo) do
     changeset
-    |> put_change(:password, hashed_password(changeset.params["password"]))
+    |> put_change(:password, Comeonin.Bcrypt.hashpwsalt(changeset.params["password"]))
     |> repo.insert()
   end
 
@@ -51,12 +50,5 @@ defmodule Cazoc.Author do
   """
   def path do
     "repositories" <> name
-  end
-
-  @doc """
-  Hashed password
-  """
-  defp hashed_password(password) do
-    Comeonin.Bcrypt.hashpwsalt(password)
   end
 end

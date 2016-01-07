@@ -54,12 +54,6 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :salt, class: "control-label" %>
-    <%= text_input f, :salt, class: "form-control" %>
-    <%= error_tag f, :salt %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :ssh_key, class: "control-label" %>
     <%= text_input f, :ssh_key, class: "form-control" %>
     <%= error_tag f, :ssh_key %>

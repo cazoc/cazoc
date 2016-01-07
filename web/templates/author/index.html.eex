@@ -11,10 +11,7 @@
       <th>Password</th>
       <th>Password tmp</th>
       <th>Token</th>
-      <th>Salt</th>
       <th>Ssh key</th>
-      <th>Repository</th>
-      <th>Service</th>
       <th>Type</th>
 
       <th></th>
@@ -31,10 +28,7 @@
       <td><%= author.password %></td>
       <td><%= author.password_tmp %></td>
       <td><%= author.token %></td>
-      <td><%= author.salt %></td>
       <td><%= author.ssh_key %></td>
-      <td><%= author.repository_id %></td>
-      <td><%= author.service_id %></td>
       <td><%= author.type %></td>
 
       <td class="text-right">

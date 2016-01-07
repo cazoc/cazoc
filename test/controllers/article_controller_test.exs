@@ -2,7 +2,7 @@ defmodule Cazoc.ArticleControllerTest do
   use Cazoc.ConnCase
 
   alias Cazoc.Article
-  @valid_attrs %{abstract: "some content", body: "some content", cover: "some content", published_at: "2010-04-17 14:00:00", title: "some content"}
+  @valid_attrs %{body: "some content", cover: "some content", published_at: "2010-04-17 14:00:00", title: "some content"}
   @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do

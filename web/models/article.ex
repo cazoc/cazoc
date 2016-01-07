@@ -3,7 +3,6 @@ defmodule Cazoc.Article do
 
   schema "articles" do
     field :title, :string
-    field :abstract, :string
     field :body, :string
     field :cover, :string
     field :published_at, Ecto.DateTime
@@ -13,8 +12,8 @@ defmodule Cazoc.Article do
     timestamps
   end
 
-  @required_fields ~w()
-  @optional_fields ~w(title body abstract cover published_at)
+  @required_fields ~w(title published_at)
+  @optional_fields ~w(body cover)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
