@@ -33,7 +33,6 @@ defmodule Cazoc.MyArticleController do
     case Repo.insert(repository) do
       {:ok, repository} ->
         published_at = now |> DateFormat.format!("%Y-%m-%d %H:%M:%S", :strftime)
-        IO.puts published_at
         article = %Article{author_id: author.id, repository_id: repository.id, published_at: now}
         changeset = Article.changeset(article, article_params)
         case Repo.insert(changeset) do
@@ -71,9 +70,8 @@ defmodule Cazoc.MyArticleController do
 
     case Repo.update(changeset) do
       {:ok, article} ->
-        IO.inspect article
-        repo = %Git.Repository{path: article.repository.path}
-        update_repository(repo, article)
+        %Git.Repository{path: article.repository.path} |> update_repository article
+
         conn
         |> put_flash(:info, "Article updated successfully.")
         |> redirect(to: my_article_path(conn, :show, article))
@@ -83,10 +81,8 @@ defmodule Cazoc.MyArticleController do
   end
 
   def delete(conn, %{"id" => id}) do
-    article = Repo.get!(Article, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
+    article = Repo.get!(Article, id) |> Repo.preload(:repository)
+    File.rm_rf article.repository.path
     Repo.delete!(article)
 
     conn
@@ -95,11 +91,9 @@ defmodule Cazoc.MyArticleController do
   end
 
   defp update_repository(repo, article) do
-    IO.inspect article
     file_name = "index.md"
     Path.join(article.repository.path, file_name) |> File.write article.body
     Git.add repo, "--all"
     Git.commit repo, "-m 'Update'"
   end
-
 end
