@@ -1,0 +1,7 @@
+h4 Edit article
+
+= render "form.html", changeset: @changeset, action: my_article_path(@conn, :update, @article)
+
+= link "Back", to: my_article_path(@conn, :index)
+
+= link " Delete", to: my_article_path(@conn, :delete, @article), method: :delete, data: [confirm: "Are you sure?"], class: ""

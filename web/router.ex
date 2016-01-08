@@ -17,7 +17,6 @@ defmodule Cazoc.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", TopController, :index
-    get "/page", PageController, :index
 
     get    "/login",  SessionController, :new
     post   "/login",  SessionController, :create

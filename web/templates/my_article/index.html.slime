@@ -1,0 +1,9 @@
+h4 Article list
+
+ul.list-unstyled
+  = for article <- @articles do
+    li
+      p = article.inserted_at |> Timex.DateFormat.format!("%Y-%m-%d %H:%M:%S", :strftime)
+      = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-link btn"
+
+= link "New article", to: my_article_path(@conn, :new)

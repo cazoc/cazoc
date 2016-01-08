@@ -7,6 +7,8 @@ html lang="en"
     meta name="description" content=""
     meta name="author" content=""
     title Cazoc
+    link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css"
+    link href="https://fonts.googleapis.com/css?family=Forum" rel="stylesheet" type="text/css"
     link rel="stylesheet" href=static_path(@conn,"/css/app.css")
 
   body
@@ -20,6 +22,7 @@ html lang="en"
               = if logged_in?(@conn) do
                 li = current_author(@conn).name
                 li = link "Articles", to: my_article_path(@conn, :index)
+                li = link "Write a article", to: my_article_path(@conn, :new)
                 li = link "Logout", to: session_path(@conn, :delete), method: :delete
               - else
                 li = link "Create a account", to: registration_path(@conn, :new)

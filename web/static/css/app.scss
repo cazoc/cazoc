@@ -2,6 +2,7 @@
 body, form, table {
   margin-top: 20px;
   margin-bottom: 20px;
+  font-family: 'Oxygen', sans-serif;
 }
 
 /* Phoenix flash messages */
@@ -20,10 +21,11 @@ form.link, form.button {
   width: 519px;
   height: 31px;
   display: inline-block;
-  margin-bottom: 1em;
+  margin-bottom: 0.3em;
   font-size: 20px;
   // background-image: url("/images/phoenix.png");
   background-size: 519px 71px;
+  font-family: 'Forum', cursive;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
