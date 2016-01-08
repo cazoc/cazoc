@@ -1,0 +1,35 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    meta name="description" content=""
+    meta name="author" content=""
+    title Cazoc
+    link rel="stylesheet" href="#{static_path(@conn, '/css/app.css')}"
+
+  body
+    .container
+      .header
+        ul.nav.nav-pills.pull-right
+          li.dropdown role="presentation"
+            a.dropdown-toggle data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" Menu
+              span.caret
+            ul.dropdown-menu
+              = if logged_in?(@conn) do
+                li = current_author(@conn).name
+                li = link "Articles", to: my_article_path(@conn, :index)
+                li = link "Logout", to: session_path(@conn, :delete), method: :delete
+              - else
+                li = link "Create a account", to: registration_path(@conn, :new)
+                li = link "Login", to: session_path(@conn, :new)
+        span.logo = link "Cazoc", to: top_path(@conn, :index)
+
+      p.alert.alert-info role="alert" = get_flash(@conn, :info)
+      p.alert.alert-danger role="alert" = get_flash(@conn, :error)
+
+      main role="main"
+        = render @view_module, @view_template, assigns
+
+    script src="#{static_path(@conn, '/js/app.js')}"
