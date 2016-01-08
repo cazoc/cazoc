@@ -29,7 +29,7 @@
 
   <li>
     <strong>Published at:</strong>
-    <%= @article.published_at %>
+    <%= @article.published_at |> Timex.DateFormat.format!("%Y-%m-%d %H:%M:%S", :strftime) %>
   </li>
 
 </ul>

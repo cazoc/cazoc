@@ -21,7 +21,7 @@
       <td><%= article.body %></td>
       <td><%= article.cover %></td>
       <td><%= article.repository_id %></td>
-      <td><%= article.published_at %></td>
+      <td><%= article.published_at |> Timex.DateFormat.format!("%Y-%m-%d %H:%M:%S", :strftime) %></td>
 
       <td class="text-right">
         <%= link "Show", to: article_path(@conn, :show, article), class: "btn btn-default btn-xs" %>

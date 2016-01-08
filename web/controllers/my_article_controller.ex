@@ -38,11 +38,8 @@ defmodule Cazoc.MyArticleController do
         changeset = Article.changeset(article, article_params)
         case Repo.insert(changeset) do
           {:ok, article} ->
-            file_name = "index.md"
             {:ok, repo} = Git.init path
-            Path.join(path, file_name) |> File.write article.body
-            Git.add repo, "--all"
-            Git.commit repo, "-m 'Update'"
+            update_repository(repo, article)
             conn
             |> put_flash(:info, "Article created successfully.")
             |> redirect(to: my_article_path(conn, :index))
@@ -69,11 +66,14 @@ defmodule Cazoc.MyArticleController do
   end
 
   def update(conn, %{"id" => id, "article" => article_params}) do
-    article = Repo.get!(Article, id)
+    article = Repo.get!(Article, id) |> Repo.preload(:repository)
     changeset = Article.changeset(article, article_params)
 
     case Repo.update(changeset) do
       {:ok, article} ->
+        IO.inspect article
+        repo = %Git.Repository{path: article.repository.path}
+        update_repository(repo, article)
         conn
         |> put_flash(:info, "Article updated successfully.")
         |> redirect(to: my_article_path(conn, :show, article))
@@ -92,6 +92,14 @@ defmodule Cazoc.MyArticleController do
     conn
     |> put_flash(:info, "Article deleted successfully.")
     |> redirect(to: my_article_path(conn, :index))
+  end
+
+  defp update_repository(repo, article) do
+    IO.inspect article
+    file_name = "index.md"
+    Path.join(article.repository.path, file_name) |> File.write article.body
+    Git.add repo, "--all"
+    Git.commit repo, "-m 'Update'"
   end
 
 end
