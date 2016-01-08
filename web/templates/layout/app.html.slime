@@ -7,15 +7,15 @@ html lang="en"
     meta name="description" content=""
     meta name="author" content=""
     title Cazoc
-    link rel="stylesheet" href="#{static_path(@conn, '/css/app.css')}"
+    link rel="stylesheet" href=static_path(@conn,"/css/app.css")
 
   body
     .container
       .header
         ul.nav.nav-pills.pull-right
           li.dropdown role="presentation"
-            a.dropdown-toggle data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" Menu
-              span.caret
+            a.dropdown-toggle data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+              i.fa.fa-bars
             ul.dropdown-menu
               = if logged_in?(@conn) do
                 li = current_author(@conn).name
@@ -32,4 +32,5 @@ html lang="en"
       main role="main"
         = render @view_module, @view_template, assigns
 
-    script src="#{static_path(@conn, '/js/app.js')}"
+    script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"
+    script src=static_path(@conn,"/js/app.js")

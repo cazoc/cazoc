@@ -60,7 +60,7 @@ exports.config = {
     },
     afterBrunch: [
       'mkdir -p priv/static/fonts',
-      'cp -f bower_components/bootstrap/dist/fonts/* priv/static/fonts/'
+      'cp -f bower_components/font-awesome/fonts/* priv/static/fonts/'
     ]
   },
 

@@ -10,7 +10,8 @@
   ],
   "dependencies": {
     "highlightjs": "~9.0.0",
-    "bootstrap": "~3.3.6",
-    "marked": "~0.3.5"
+    "marked": "~0.3.5",
+    "font-awesome": "Font-Awesome#~4.5.0",
+    "bootstrap": "v4.0.0-alpha.2"
   }
 }
