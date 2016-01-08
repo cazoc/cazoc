@@ -3,7 +3,7 @@ defmodule Cazoc.ArticleTest do
 
   alias Cazoc.Article
 
-  @valid_attrs %{body: "some content", cover: "some content", published_at: "2016-01-07 08:44:53", title: "some content"}
+  @valid_attrs %{body: "some content", cover: "some content", published_at: Timex.Date.now, title: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

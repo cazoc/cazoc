@@ -1,4 +1,10 @@
 <h3><%= @article.title %></h3>
+
+<textarea id="marked-mathjax-input" onkeyup="Preview.Update()" name="comment" "autofocus"><%= @article.body %></textarea>
+
+<div class="preview" id="marked-mathjax-preview"></div>
+<div class="preview" id="marked-mathjax-preview-buffer" style="display:none; position:absolute; top:0; left: 0"></div>
+
 <%= link "Edit", to: my_article_path(@conn, :edit, @article) %>
 <%= link "Back", to: my_article_path(@conn, :index) %>
 
@@ -18,3 +24,9 @@
  });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured"></script>
+<script>
+ window.document.onload = function(e) {
+     Preview.Init();
+     Preview.Update();
+ }
+</script>
