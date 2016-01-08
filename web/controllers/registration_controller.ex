@@ -16,7 +16,7 @@ defmodule Cazoc.RegistrationController do
   def create(conn, %{"author" => author_params}) do
     changeset = Author.changeset(%Author{}, author_params)
 
-    case Author.create(changeset, Cazoc.Repo) do
+    case Author.create(changeset, Repo) do
       {:ok, author} ->
         conn
         |> put_session(:current_author, author.id)

@@ -3,7 +3,11 @@ defmodule Cazoc.MyArticleController do
   require Logger
 
   alias Cazoc.Article
+  alias Cazoc.Author
   alias Cazoc.Session
+  alias Cazoc.Repository
+  alias Timex.Date
+  alias Timex.DateFormat
 
   plug :scrub_params, "article" when action in [:create, :update]
 
@@ -21,17 +25,36 @@ defmodule Cazoc.MyArticleController do
   end
 
   def create(conn, %{"article" => article_params}) do
-    article = %Article{author_id: Session.current_author(conn).id}
-    changeset = Article.changeset(article, article_params)
-
-    case Repo.insert(changeset) do
-      {:ok, _article} ->
+    author = Session.current_author(conn)
+    now = Date.now
+    dir_name = now |> DateFormat.format!("%Y%m%d%H%M%S", :strftime)
+    path = author |> Author.path |> Path.join dir_name
+    repository = %Repository{path: path}
+    case Repo.insert(repository) do
+      {:ok, repository} ->
+        published_at = now |> DateFormat.format!("%Y-%m-%d %H:%M:%S", :strftime)
+        IO.puts published_at
+        article = %Article{author_id: author.id, repository_id: repository.id, published_at: now}
+        changeset = Article.changeset(article, article_params)
+        case Repo.insert(changeset) do
+          {:ok, article} ->
+            file_name = "index.md"
+            {:ok, repo} = Git.init path
+            Path.join(path, file_name) |> File.write article.body
+            Git.add repo, "--all"
+            Git.commit repo, "-m 'Update'"
+            conn
+            |> put_flash(:info, "Article created successfully.")
+            |> redirect(to: my_article_path(conn, :index))
+          {:error, changeset} ->
+            render(conn, "new.html", changeset: changeset)
+        end
+      {:error, repository} ->
         conn
-        |> put_flash(:info, "Article created successfully.")
+        |> put_flash(:info, "Failed to poste article.")
         |> redirect(to: my_article_path(conn, :index))
-      {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
     end
+
   end
 
   def show(conn, %{"id" => id}) do

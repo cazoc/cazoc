@@ -43,11 +43,6 @@
   </li>
 
   <li>
-    <strong>Salt:</strong>
-    <%= @author.salt %>
-  </li>
-
-  <li>
     <strong>Ssh key:</strong>
     <%= @author.ssh_key %>
   </li>
@@ -55,11 +50,6 @@
   <li>
     <strong>Repository:</strong>
     <%= @author.repository_id %>
-  </li>
-
-  <li>
-    <strong>Service:</strong>
-    <%= @author.service_id %>
   </li>
 
   <li>

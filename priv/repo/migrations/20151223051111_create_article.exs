@@ -4,7 +4,6 @@ defmodule Cazoc.Repo.Migrations.CreateArticle do
   def change do
     create table(:articles) do
       add :title, :string
-      add :abstract, :string
       add :body, :text
       add :cover, :string
       add :published_at, :datetime

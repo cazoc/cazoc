@@ -3,7 +3,7 @@ defmodule Cazoc.AuthorTest do
 
   alias Cazoc.Author
 
-  @valid_attrs %{display_name: "some content", email: "some content", icon: "some content", name: "some content", password: "some content", password_tmp: "some content", salt: "some content", ssh_key: "some content", token: "some content", type: 42, url: "some content"}
+  @valid_attrs %{display_name: "some content", email: "some@content", icon: "some content", name: "some content", password: "some content", password_tmp: "some content", ssh_key: "some content", token: "some content", type: 42, url: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
