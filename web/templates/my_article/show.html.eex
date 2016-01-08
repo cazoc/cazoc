@@ -1,32 +1,113 @@
+<script type="text/x-mathjax-config">
+ MathJax.Hub.Config({
+   showProcessingMessages: false,
+   tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] },
+   TeX: { equationNumbers: {autoNumber: "AMS"} }
+ });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+ document.addEventListener('DOMContentLoaded', function() {
+   marked.setOptions({
+     renderer: new marked.Renderer(),
+     gfm: true,
+     tables: true,
+     breaks: false,
+     pedantic: false,
+     sanitize: false, // IMPORTANT, because we do MathJax before markdown, however we do escaping in 'CreatePreview'.
+     smartLists: true,
+     smartypants: false
+   });
+
+   var Preview = {
+     delay: 50,        // delay after keystroke before updating
+     preview: null,     // filled in by Init below
+     buffer: null,      // filled in by Init below
+     timeout: null,     // store setTimout id
+     mjRunning: false,  // true when MathJax is processing
+     oldText: null,     // used to check if an update is needed
+
+     Init: function () {
+       this.preview = document.getElementById("marked-mathjax-preview");
+       this.buffer = document.getElementById("marked-mathjax-preview-buffer");
+       this.textarea = document.getElementById("marked-mathjax-input");
+     },
+
+     SwapBuffers: function () {
+       var buffer = this.preview;
+       var preview = this.buffer;
+       this.buffer = buffer;
+       this.preview = preview;
+       buffer.style.display = "none";
+       buffer.style.position = "absolute";
+       preview.style.position = "";
+       preview.style.display = "";
+     },
+
+     Update: function () {
+       if (this.timeout) {clearTimeout(this.timeout)}
+       this.timeout = setTimeout(this.callback,this.delay);
+     },
+
+     CreatePreview: function () {
+       Preview.timeout = null;
+       if (this.mjRunning) return;
+       var text = this.textarea.value;
+       if (text === this.oldtext) return;
+       text = this.Escape(text);                       //Escape tags before doing stuff
+       this.buffer.innerHTML = this.oldtext = text;
+       this.mjRunning = true;
+       MathJax.Hub.Queue(
+         ["Typeset",MathJax.Hub,this.buffer],
+         ["PreviewDone",this],
+         ["resetEquationNumbers", MathJax.InputJax.TeX]
+       );
+     },
+
+     PreviewDone: function () {
+       this.mjRunning = false;
+       text = this.buffer.innerHTML;
+       // replace occurrences of &gt; at the beginning of a new line
+       // with > again, so Markdown blockquotes are handled correctly
+       text = text.replace(/^&gt;/mg, '>');
+       this.buffer.innerHTML = marked (text);
+       this.SwapBuffers();
+     },
+     Escape: function (html, encode) {
+       return html
+            .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+     },
+
+     UpdateKeyPress: function (event) {
+       if (event.keyCode < 16 || event.keyCode > 47) {
+         this.preview.innerHTML = '<p>' + marked(this.textarea.value) + '</p>';
+         this.buffer.innerHTML = '<p>' + marked(this.textarea.value) + '</p>';
+       }
+       this.Update();
+     }
+
+   };
+   //
+   //  Cache a callback to the CreatePreview action
+   //
+   Preview.callback = MathJax.Callback(["CreatePreview",Preview]);
+   Preview.callback.autoReset = true;
+
+   Preview.Init();
+   Preview.Update();
+ });
+</script>
+
 <h3><%= @article.title %></h3>
 
-<textarea id="marked-mathjax-input" onkeyup="Preview.Update()" name="comment" "autofocus"><%= @article.body %></textarea>
+<textarea id="marked-mathjax-input" class="" onkeyup="Preview.Update()" hidden="true"" name="comment" "autofocus"><%= @article.body %></textarea>
 
 <div class="preview" id="marked-mathjax-preview"></div>
 <div class="preview" id="marked-mathjax-preview-buffer" style="display:none; position:absolute; top:0; left: 0"></div>
 
 <%= link "Edit", to: my_article_path(@conn, :edit, @article) %>
 <%= link "Back", to: my_article_path(@conn, :index) %>
-
-<script type="text/x-mathjax-config">
- MathJax.Hub.Config({
-     skipStartupTypeset: true,
-     extensions: ["tex2jax.js"],
-     jax: ["input/TeX", "output/HTML-CSS"],
-     tex2jax: {
-         inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-         displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-         processEscapes: true
-     },
-     "HTML-CSS": {
-         availableFonts: ["TeX"]
-     }
- });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured"></script>
-<script>
- window.document.onload = function(e) {
-     Preview.Init();
-     Preview.Update();
- }
-</script>
