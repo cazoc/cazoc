@@ -38,7 +38,7 @@ defmodule Cazoc.MyArticleController do
         case Repo.insert(changeset) do
           {:ok, article} ->
             {:ok, repo} = Git.init path
-            update_repository(repo, article)
+            update_repository(repo, article |> Repo.preload(:repository))
             conn
             |> put_flash(:info, "Article created successfully.")
             |> redirect(to: my_article_path(conn, :index))
