@@ -28,7 +28,7 @@ defmodule Cazoc.MyArticleController do
     author = Session.current_author(conn)
     now = Date.now
     dir_name = now |> DateFormat.format!("%Y%m%d%H%M%S", :strftime)
-    path = author |> Author.path |> Path.join dir_name
+    path = author |> Author.path |> Path.join(dir_name)
     repository = %Repository{path: path}
     case Repo.insert(repository) do
       {:ok, repository} ->
@@ -70,7 +70,7 @@ defmodule Cazoc.MyArticleController do
 
     case Repo.update(changeset) do
       {:ok, article} ->
-        %Git.Repository{path: article.repository.path} |> update_repository article
+        %Git.Repository{path: article.repository.path} |> update_repository(article)
 
         conn
         |> put_flash(:info, "Article updated successfully.")
@@ -92,7 +92,7 @@ defmodule Cazoc.MyArticleController do
 
   defp update_repository(repo, article) do
     file_name = "index.md"
-    Path.join(article.repository.path, file_name) |> File.write article.body
+    Path.join(article.repository.path, file_name) |> File.write(article.body)
     Git.add repo, "--all"
     Git.commit repo, "-m 'Update'"
   end
