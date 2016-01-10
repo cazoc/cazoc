@@ -1,0 +1,8 @@
+{
+  "name": "Cazoc",
+  "description": "Article hosting service",
+  "image": "joshwlewis/docker-heroku-phoenix:latest",
+  "addons": [
+    "heroku-postgresql"
+  ]
+}
