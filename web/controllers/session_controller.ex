@@ -1,6 +1,8 @@
 defmodule Cazoc.SessionController do
   use Cazoc.Web, :controller
 
+  alias Cazoc.Session
+
   @doc """
   Login form
   """
@@ -12,7 +14,7 @@ defmodule Cazoc.SessionController do
   Login
   """
   def create(conn, %{"session" => session_params}) do
-    case Cazoc.Session.login(session_params, Cazoc.Repo) do
+    case Session.login(session_params, Repo) do
       {:ok, author} ->
         conn
         |> put_session(:current_author, author.id)
