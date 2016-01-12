@@ -1,0 +1,6 @@
+<h2>Edit collaborator</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: collaborator_path(@conn, :update, @collaborator) %>
+
+<%= link "Back", to: collaborator_path(@conn, :index) %>

@@ -7,7 +7,7 @@ defmodule Cazoc.RepositoryController do
 
   def index(conn, _params) do
     repositories = Repo.all(Repository)
-    render(conn, "index.html", repositories: repositories)
+    render(conn, :index, repositories: repositories)
   end
 
   def new(conn, _params) do
@@ -30,7 +30,7 @@ defmodule Cazoc.RepositoryController do
 
   def show(conn, %{"id" => id}) do
     repository = Repo.get!(Repository, id)
-    render(conn, "show.html", repository: repository)
+    render(conn, :show, repository: repository)
   end
 
   def edit(conn, %{"id" => id}) do

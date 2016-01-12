@@ -6,8 +6,8 @@ defmodule Cazoc.CommentController do
   plug :scrub_params, "comment" when action in [:create, :update]
 
   def index(conn, _params) do
-    comments = Repo.all(Comment)
-    render(conn, "index.html", comments: comments)
+    comments = Repo.all(Comment) |> Repo.preload(:author)
+    render(conn, :index, comments: comments)
   end
 
   def new(conn, _params) do
@@ -29,8 +29,8 @@ defmodule Cazoc.CommentController do
   end
 
   def show(conn, %{"id" => id}) do
-    comment = Repo.get!(Comment, id)
-    render(conn, "show.html", comment: comment)
+    comment = Repo.get!(Comment, id) |> Repo.preload(:author)
+    render(conn, :show, comment: comment)
   end
 
   def edit(conn, %{"id" => id}) do

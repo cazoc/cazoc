@@ -7,7 +7,7 @@ defmodule Cazoc.ServiceController do
 
   def index(conn, _params) do
     services = Repo.all(Service)
-    render(conn, "index.html", services: services)
+    render(conn, :index, services: services)
   end
 
   def new(conn, _params) do
@@ -30,7 +30,7 @@ defmodule Cazoc.ServiceController do
 
   def show(conn, %{"id" => id}) do
     service = Repo.get!(Service, id)
-    render(conn, "show.html", service: service)
+    render(conn, :show, service: service)
   end
 
   def edit(conn, %{"id" => id}) do

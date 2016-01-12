@@ -50,10 +50,20 @@ defmodule Cazoc.Router do
     resources "/articles", ArticleController
     resources "/comments", CommentController
     resources "/services", ServiceController
+    resources "/families", FamilyController
+    resources "/collaborators", CollaboratorController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Cazoc do
-  #   pipe_through :api
-  # end
+  scope "/api", Cazoc do
+    pipe_through :api
+
+    scope "/v1", as: :v1 do
+      resources "/authors", AuthorController, only: [:index, :show]
+      resources "/repositories", RepositoryController, only: [:index, :show]
+      resources "/articles", ArticleController, only: [:index, :show]
+      resources "/comments", CommentController, only: [:index, :show]
+      resources "/families", FamilyController, only: [:index, :show]
+      resources "/collaborators", CollaboratorController, only: [:index, :show]
+    end
+  end
 end

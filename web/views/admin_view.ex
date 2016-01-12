@@ -2,6 +2,6 @@ defmodule Cazoc.AdminView do
   use Cazoc.Web, :view
 
   def models do
-    ["accounts", "authors", "articles", "families", "repositories", "comments"]
+    ["authors", "articles", "collaborators", "families", "services", "repositories", "comments"]
   end
 end

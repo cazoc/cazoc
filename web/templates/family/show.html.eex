@@ -1,0 +1,33 @@
+<h2>Show family</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @family.name %>
+  </li>
+
+  <li>
+    <strong>Display name:</strong>
+    <%= @family.display_name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @family.description %>
+  </li>
+
+  <li>
+    <strong>Cover:</strong>
+    <%= @family.cover %>
+  </li>
+
+  <li>
+    <strong>Author:</strong>
+    <%= @family.author_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: family_path(@conn, :edit, @family) %>
+<%= link "Back", to: family_path(@conn, :index) %>

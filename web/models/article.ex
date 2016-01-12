@@ -8,8 +8,9 @@ defmodule Cazoc.Article do
     field :published_at, Timex.Ecto.DateTime
     belongs_to :author, Cazoc.Author
     belongs_to :repository, Cazoc.Repository
+    has_many :comments, Cazoc.Comment, on_delete: :delete_all
 
-    timestamps usec: true
+    timestamps
   end
 
   @required_fields ~w(title published_at)

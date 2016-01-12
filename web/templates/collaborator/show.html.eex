@@ -1,0 +1,18 @@
+<h2>Show collaborator</h2>
+
+<ul>
+
+  <li>
+    <strong>Family:</strong>
+    <%= @collaborator.family_id %>
+  </li>
+
+  <li>
+    <strong>Author:</strong>
+    <%= @collaborator.author_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: collaborator_path(@conn, :edit, @collaborator) %>
+<%= link "Back", to: collaborator_path(@conn, :index) %>
