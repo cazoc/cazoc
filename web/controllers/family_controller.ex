@@ -6,8 +6,8 @@ defmodule Cazoc.FamilyController do
   plug :scrub_params, "family" when action in [:create, :update]
 
   def index(conn, _params) do
-    families = Repo.all(Family)
-    render(conn, "index.html", families: families)
+    families = Repo.all(Family) |> Repo.preload(:author) |> Repo.preload(:articles) |> Repo.preload(:collaborators)
+    render(conn, :index, families: families)
   end
 
   def new(conn, _params) do
@@ -29,8 +29,8 @@ defmodule Cazoc.FamilyController do
   end
 
   def show(conn, %{"id" => id}) do
-    family = Repo.get!(Family, id)
-    render(conn, "show.html", family: family)
+    family = Repo.get!(Family, id) |> Repo.preload(:author) |> Repo.preload(:articles) |> Repo.preload(:collaborators)
+    render(conn, :show, family: family)
   end
 
   def edit(conn, %{"id" => id}) do

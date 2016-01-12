@@ -7,6 +7,8 @@ defmodule Cazoc.Family do
     field :description, :string
     field :cover, :string
     belongs_to :author, Cazoc.Author
+    has_many :articles, Cazoc.Article
+    has_many :collaborators, Cazoc.Collaborator
 
     timestamps
   end

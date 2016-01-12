@@ -6,8 +6,8 @@ defmodule Cazoc.CollaboratorController do
   plug :scrub_params, "collaborator" when action in [:create, :update]
 
   def index(conn, _params) do
-    collaborators = Repo.all(Collaborator)
-    render(conn, "index.html", collaborators: collaborators)
+    collaborators = Repo.all(Collaborator) |> Repo.preload(:author)
+    render(conn, :index, collaborators: collaborators)
   end
 
   def new(conn, _params) do
@@ -29,8 +29,8 @@ defmodule Cazoc.CollaboratorController do
   end
 
   def show(conn, %{"id" => id}) do
-    collaborator = Repo.get!(Collaborator, id)
-    render(conn, "show.html", collaborator: collaborator)
+    collaborator = Repo.get!(Collaborator, id) |> Repo.preload(:author)
+    render(conn, :show, collaborator: collaborator)
   end
 
   def edit(conn, %{"id" => id}) do

@@ -14,7 +14,8 @@ defmodule Cazoc.Author do
     field :type, :integer, defaults: 0
     belongs_to :repository, Cazoc.Repository
     has_many :services, Cazoc.Service, on_delete: :delete_all
-    has_many :articles, Cazoc.Article
+    has_many :articles, Cazoc.Article, on_delete: :delete_all
+    has_many :families, Cazoc.Family, on_delete: :delete_all
 
     timestamps
   end

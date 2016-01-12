@@ -7,7 +7,7 @@ defmodule Cazoc.AuthorController do
 
   def index(conn, _params) do
     authors = Repo.all(Author)
-    render(conn, "index.html", authors: authors)
+    render(conn, :index, authors: authors)
   end
 
   def new(conn, _params) do
@@ -30,7 +30,7 @@ defmodule Cazoc.AuthorController do
 
   def show(conn, %{"id" => id}) do
     author = Repo.get!(Author, id)
-    render(conn, "show.html", author: author)
+    render(conn, :show, author: author)
   end
 
   def edit(conn, %{"id" => id}) do
