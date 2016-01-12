@@ -1,0 +1,28 @@
+<h2>Listing collaborators</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Family</th>
+      <th>Author</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for collaborator <- @collaborators do %>
+    <tr>
+      <td><%= collaborator.family_id %></td>
+      <td><%= collaborator.author_id %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: collaborator_path(@conn, :show, collaborator), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: collaborator_path(@conn, :edit, collaborator), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: collaborator_path(@conn, :delete, collaborator), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New collaborator", to: collaborator_path(@conn, :new) %>

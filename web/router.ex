@@ -50,6 +50,8 @@ defmodule Cazoc.Router do
     resources "/articles", ArticleController
     resources "/comments", CommentController
     resources "/services", ServiceController
+    resources "/families", FamilyController
+    resources "/collaborators", CollaboratorController
   end
 
   # Other scopes may use custom stacks.
