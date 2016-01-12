@@ -1,9 +1,0 @@
-<div class="row marketing">
-    <div class="col-lg-6">
-        <h4>Models</h4>
-        <ul>
-            <%= for model <- models do %>
-                <li><a href="/admin/<%= model %>"><%= model %></a></li>
-            <% end %>
-    </div>
-</div>
