@@ -1,0 +1,13 @@
+h4 Login
+
+= form_for @conn, session_path(@conn, :create), [name: :session], fn form ->
+  .form-group
+    label Email
+    = email_input form, :email, class: "form-control"
+
+  .form-group
+    label Password
+    = password_input form, :password, class: "form-control"
+
+  .form-group
+    = submit "Login", class: "btn btn-primary"

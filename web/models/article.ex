@@ -25,4 +25,8 @@ defmodule Cazoc.Article do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  def formated_publised_at(model) do
+    model.published_at |> Timex.DateFormat.format!("%Y/%m/%d %H:%M", :strftime)
+  end
 end

@@ -37,6 +37,8 @@ defmodule Cazoc.Router do
     patch "/update/:id", MyArticleController, :update
     put "/update/:id", MyArticleController, :update
     delete "/delete/:id", MyArticleController, :delete
+
+    get  "/search", SearchController, :index
   end
 
   scope "/admin", Cazoc do

@@ -1,5 +1,11 @@
-div class="row marketing"
-  div class="col-lg-6"
-    h5 Seach articles
-    h5 Features Topics
-    h5 Recent articles
+.row.marketing
+  .col-lg-12
+    h6 Seach articles
+    = form_for @conn, search_path(@conn, :index), [name: :search, method: :get], fn f ->
+      .form-group
+        = text_input f, :keyword, class: "form-control"
+      .form-group
+        = submit "Search", class: "btn btn-primary btn-sm"
+
+    h6 Features families
+    h6 Recent articles

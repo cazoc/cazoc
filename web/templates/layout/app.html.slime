@@ -18,7 +18,7 @@ html lang="en"
           li.dropdown role="presentation"
             a.dropdown-toggle data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
               i.fa.fa-bars
-            ul.dropdown-menu
+            ul.dropdown-menu.global_menu
               = if logged_in?(@conn) do
                 li = current_author(@conn).name
                 li = link "Articles", to: my_article_path(@conn, :index)
