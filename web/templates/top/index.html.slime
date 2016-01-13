@@ -1,11 +1,18 @@
-.row.marketing
+.row.marketing.top
   .col-lg-12
-    h6 Seach articles
+    h5 Seach articles
     = form_for @conn, search_path(@conn, :index), [name: :search, method: :get], fn f ->
       .form-group
         = text_input f, :keyword, class: "form-control"
       .form-group
         = submit "Search", class: "btn btn-primary btn-sm"
 
-    h6 Features families
-    h6 Recent articles
+    /h6 Features families
+    h5.m-t-3 Recent articles
+    table.table.table-sm.table-responsive.recent_articles
+      tbody
+        = for article <- @articles do
+          tr
+            td.subtitle = article |> Cazoc.Article.formated_publised_at
+            td = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
+            td = article.author.name

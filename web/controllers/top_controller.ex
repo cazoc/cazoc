@@ -1,7 +1,15 @@
 defmodule Cazoc.TopController do
   use Cazoc.Web, :controller
 
+  alias Cazoc.Article
+  alias Cazoc.Author
+
   def index(conn, _params) do
-    render conn, "index.html"
+    articles = Repo.all from article in Article,
+      join: author in assoc(article, :author),
+      order_by: article.published_at,
+      limit: 7,
+      preload: [author: author]
+    render conn, "index.html", articles: articles
   end
 end
