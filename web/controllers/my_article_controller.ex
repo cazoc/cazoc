@@ -54,7 +54,7 @@ defmodule Cazoc.MyArticleController do
   end
 
   def show(conn, %{"id" => id}) do
-    article = Repo.get!(Article, id)
+    article = Repo.get!(Article, id) |> Repo.preload(:author)
     render(conn, "show.html", article: article)
   end
 
