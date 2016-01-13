@@ -102,15 +102,9 @@
 
    Preview.Init();
    Preview.Update();
+
+   $("#marked-mathjax-input").keyup(function(e) {
+     Preview.Update();
+   });
  });
 </script>
-
-<h3><%= @article.title %></h3>
-
-<textarea id="marked-mathjax-input" class="" onkeyup="Preview.Update()" hidden="true"" name="comment" "autofocus"><%= @article.body %></textarea>
-
-<article class="preview" id="marked-mathjax-preview"></article>
-<div class="preview" id="marked-mathjax-preview-buffer" style="display:none; position:absolute; top:0; left: 0"></div>
-
-<%= link "Edit", to: my_article_path(@conn, :edit, @article) %>
-<%= link "Back", to: my_article_path(@conn, :index) %>

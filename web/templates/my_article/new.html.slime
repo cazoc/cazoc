@@ -1,3 +1,9 @@
+= render "marked.html"
+
 = render "form.html", changeset: @changeset, action: my_article_path(@conn, :create)
 
 = link "Back", to: my_article_path(@conn, :index)
+
+h5.m-t-2 Preview
+article.preview.p-t-1.m-t-1 id="marked-mathjax-preview"
+article.preview.p-t-1.m-t-1 id="marked-mathjax-preview-buffer" style="display:none; position:absolute; top:0; left: 0"

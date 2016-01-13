@@ -1,0 +1,12 @@
+= render "marked.html"
+
+h3 = @article.title
+
+textarea id="marked-mathjax-input" hidden="true" name="comment"
+  = @article.body
+
+article.preview id="marked-mathjax-preview"
+.preview id="marked-mathjax-preview-buffer" style="display:none; position:absolute; top:0; left: 0"
+
+= link "Edit", to: my_article_path(@conn, :edit, @article)
+= link " Back", to: my_article_path(@conn, :index)
