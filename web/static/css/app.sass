@@ -1,3 +1,17 @@
+.center
+  text-align: center
+.right
+  text-align: right
+.left
+  text-align: left
+
+.center-block
+  display: block
+  margin: auto
+
+.subtitle
+  font-size: 80%
+
 /* Space out content a bit */
 body
   margin-top: 10px
@@ -51,17 +65,21 @@ form.button
   .container
     max-width: 730px
 
-.container-narrow > hr
-  margin: 30px 0
+  .container-narrow > hr
+    margin: 30px 0
 
-/* Main marketing message */
-.jumbotron
-  text-align: center
-  border-bottom: 1px solid #e5e5e5
+  /* Main marketing message */
+  .jumbotron
+    text-align: center
+    border-bottom: 1px solid #e5e5e5
 
-/* Supporting marketing content */
-.marketing
-  margin: 35px 0
+  td.article_list
+    max-width: 400px
+    overflow: scroll
+
+  /* Supporting marketing content */
+  .marketing
+    margin: 35px 0
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px)
@@ -78,3 +96,14 @@ form.button
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron
     border-bottom: 0
+
+.article_list
+  vertical-align: middle !important
+  border: none !important
+
+.recent_articles, .my_articles, .search_result
+  td
+    @extend .article_list
+
+h3
+  word-break: break-all
