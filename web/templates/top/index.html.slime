@@ -8,6 +8,7 @@
         = submit "Search", class: "btn btn-primary btn-sm"
 
     /h6 Features families
+
     h5.m-t-3 Recent articles
     table.table.table-sm.table-responsive.recent_articles
       tbody
