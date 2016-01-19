@@ -1,13 +1,8 @@
 defmodule Cazoc.MyArticleController do
   use Cazoc.Web, :controller
-  require Logger
 
-  alias Cazoc.Article
-  alias Cazoc.Author
-  alias Cazoc.Session
-  alias Cazoc.Repository
-  alias Timex.Date
-  alias Timex.DateFormat
+  alias Cazoc.{Article, Author, Session, Repository}
+  alias Timex.{Date, DateFormat}
 
   plug :scrub_params, "article" when action in [:create, :update]
 

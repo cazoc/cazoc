@@ -1,8 +1,7 @@
 defmodule Cazoc.TopController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.Article
-  alias Cazoc.Author
+  alias Cazoc.{Article, Author}
 
   def index(conn, _params) do
     articles = Repo.all from article in Article,
