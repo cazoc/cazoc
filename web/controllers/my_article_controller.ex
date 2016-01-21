@@ -20,32 +20,28 @@ defmodule Cazoc.MyArticleController do
   end
 
   def create(conn, %{"article" => article_params}) do
-    author = Session.current_author(conn)
     now = Date.now
+    author = Session.current_author(conn)
     dir_name = now |> DateFormat.format!("%Y%m%d%H%M%S", :strftime)
     path = author |> Author.path |> Path.join(dir_name)
     repository = %Repository{path: path}
-    case Repo.insert(repository) do
+    result = with {:ok, repository} <- Repo.insert(repository),
+      article = %Article{author_id: author.id, repository_id: repository.id, published_at: now},
+      changeset = Article.changeset(article, article_params),
+      {:ok, article} <- Repo.insert(changeset),
+      {:ok, repo} <- init_and_commit(path, article),
+      do: {:ok, repo}
+
+    case result do
       {:ok, repository} ->
-        published_at = now |> DateFormat.format!("%Y-%m-%d %H:%M:%S", :strftime)
-        article = %Article{author_id: author.id, repository_id: repository.id, published_at: now}
-        changeset = Article.changeset(article, article_params)
-        case Repo.insert(changeset) do
-          {:ok, article} ->
-            {:ok, repo} = Git.init path
-            update_repository(repo, article |> Repo.preload(:repository))
-            conn
-            |> put_flash(:info, "Article created successfully.")
-            |> redirect(to: my_article_path(conn, :index))
-          {:error, changeset} ->
-            render(conn, "new.html", changeset: changeset)
-        end
-      {:error, repository} ->
         conn
-        |> put_flash(:info, "Failed to poste article.")
+        |> put_flash(:info, "Article created successfully.")
+        |> redirect(to: my_article_path(conn, :index))
+      {:error, _} ->
+        conn
+        |> put_flash(:info, "Failed to post article.")
         |> redirect(to: my_article_path(conn, :index))
     end
-
   end
 
   def show(conn, %{"id" => id}) do
@@ -85,10 +81,18 @@ defmodule Cazoc.MyArticleController do
     |> redirect(to: my_article_path(conn, :index))
   end
 
+  defp init_and_commit(path, article) do
+    {:ok, repo} = Git.init path
+    update_repository(repo, article |> Repo.preload(:repository))
+  end
+
   defp update_repository(repo, article) do
     file_name = "index.md"
     Path.join(article.repository.path, file_name) |> File.write(article.body)
     Git.add repo, "--all"
     Git.commit repo, "-m 'Update'"
+  end
+
+  defp new_dir_path(author) do
   end
 end
