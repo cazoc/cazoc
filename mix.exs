@@ -49,6 +49,7 @@ defmodule Cazoc.Mixfile do
      {:exrm, "~> 1.0.0-rc7"},
      {:git_cli, "~> 0.1.0"},
      {:github_oauth, "~> 0.1.1"},
+     {:pandex, "~> 0.1.0"},
      {:qiita_ex, "~> 0.0.2"},
      {:timex, "~> 1.0.0"},
      {:timex_ecto, "~> 0.7.0"}]
