@@ -24,6 +24,8 @@
   "idna": {:hex, :idna, "1.0.2"},
   "jsx": {:hex, :jsx, "2.6.2"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
+  "mimetype_parser": {:hex, :mimetype_parser, "0.1.1"},
+  "oauth2": {:hex, :oauth2, "0.5.0"},
   "pandex": {:hex, :pandex, "0.1.0"},
   "phoenix": {:hex, :phoenix, "1.1.2"},
   "phoenix_calendar": {:hex, :phoenix_calendar, "0.1.2"},
@@ -43,4 +45,6 @@
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
   "timex": {:hex, :timex, "1.0.0"},
   "timex_ecto": {:hex, :timex_ecto, "0.7.0"},
-  "tzdata": {:hex, :tzdata, "0.5.6"}}
+  "tzdata": {:hex, :tzdata, "0.5.6"},
+  "ueberauth": {:hex, :ueberauth, "0.2.0"},
+  "ueberauth_github": {:hex, :ueberauth_github, "0.2.0"}}

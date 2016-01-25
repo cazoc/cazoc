@@ -31,3 +31,8 @@ config :phoenix, :generators,
 config :phoenix, :template_engines,
   slim: PhoenixSlime.Engine,
   slime: PhoenixSlime.Engine
+
+config :ueberauth, Ueberauth,
+  providers: [
+    github: [{Ueberauth.Strategy.GitHub, []}]
+  ]

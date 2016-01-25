@@ -29,7 +29,9 @@ defmodule Cazoc.Mixfile do
                     :postgrex,
                     :qiita_ex,
                     :timex_ecto,
-                    :tzdata]]
+                    :tzdata,
+                    :ueberauth,
+                    :ueberauth_github]]
   end
 
   # Specifies which paths to compile per environment.
@@ -52,7 +54,8 @@ defmodule Cazoc.Mixfile do
      {:pandex, "~> 0.1.0"},
      {:qiita_ex, "~> 0.0.2"},
      {:timex, "~> 1.0.0"},
-     {:timex_ecto, "~> 0.7.0"}]
+     {:timex_ecto, "~> 0.7.0"},
+     {:ueberauth_github, "~> 0.2"}]
   end
 
   defp aliases do
