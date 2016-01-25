@@ -1,6 +1,6 @@
 .row.marketing.top
   .col-lg-12
-    h5 Seach articles
+    h5 Search articles
     = form_for @conn, search_path(@conn, :index), [name: :search, method: :get], fn f ->
       .form-group
         = text_input f, :keyword, class: "form-control"
