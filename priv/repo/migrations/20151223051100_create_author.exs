@@ -18,6 +18,8 @@ defmodule Cazoc.Repo.Migrations.CreateAuthor do
       timestamps
     end
     create index(:authors, [:repository_id])
+    create unique_index(:authors, [:email])
+    create unique_index(:authors, [:name])
 
   end
 end

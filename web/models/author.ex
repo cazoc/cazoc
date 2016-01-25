@@ -33,8 +33,10 @@ defmodule Cazoc.Author do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> unique_constraint(:email)
+    |> unique_constraint(:name)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
+    |> validate_length(:name, min: 3)
   end
 
   @doc """
