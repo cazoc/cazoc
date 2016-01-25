@@ -1,25 +1,24 @@
 h2 Create a account
 
 = form_for @changeset, registration_path(@conn, :create), fn form ->
-  = if form.errors != [] do
+  = if @changeset.action do
     .alert.alert-danget
-      p Oops, something went wrong! Please check the errors below:
-        ul
-          = for {attr, message} <- form.errors do
-            li = humanize(attr)
-              = message
+      p Oops, something went wrong! Please check the errors below.
 
   .form-group
     = label form, :path, "Name", class: "control-label"
     = text_input form, :name, class: "form-control"
+    = error_tag form, :name
 
   .form-group
     = label form, :path, "Email", class: "control-label"
     = email_input form, :email, class: "form-control"
+    = error_tag form, :email
 
   .form-group
     = label form, :path, "Password", class: "control-label"
     = password_input form, :password, class: "form-control"
+    = error_tag form, :password
 
   .form-group
     = submit "Register", class: "btn btn-primary"
