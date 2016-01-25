@@ -34,5 +34,5 @@ config :phoenix, :template_engines,
 
 config :ueberauth, Ueberauth,
   providers: [
-    github: [{Ueberauth.Strategy.GitHub, []}]
+    github: { Ueberauth.Strategy.Github, [default_scope: "user:email,public_repo"] }
   ]

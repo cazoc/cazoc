@@ -1,5 +1,6 @@
 defmodule Cazoc.Router do
   use Cazoc.Web, :router
+  require Ueberauth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -39,6 +40,15 @@ defmodule Cazoc.Router do
     delete "/delete/:id", MyArticleController, :delete
 
     get  "/search", SearchController, :index
+  end
+
+  scope "/auth", Cazoc do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+    post "/:provider/callback", AuthController, :callback
+    delete "/logout", AuthController, :delete
   end
 
   scope "/admin", Cazoc do

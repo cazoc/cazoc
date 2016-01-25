@@ -23,11 +23,9 @@ defmodule Cazoc.Mixfile do
                     :cowboy,
                     :gettext,
                     :git_cli,
-                    :github_oauth,
                     :logger,
                     :phoenix, :phoenix_ecto, :phoenix_html, :phoenix_slime,
                     :postgrex,
-                    :qiita_ex,
                     :timex_ecto,
                     :tzdata,
                     :ueberauth,
@@ -39,10 +37,10 @@ defmodule Cazoc.Mixfile do
   defp elixirc_paths(_),     do: ["lib", "web"]
 
   defp deps do
-    [{:phoenix, "~> 1.1.2"},
+    [{:phoenix, "~> 1.1"},
      {:phoenix_ecto, "~> 2.0"},
      {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.3"},
+     {:phoenix_html, "~> 2.4"},
      {:phoenix_slime, "~> 0.4.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
@@ -50,12 +48,12 @@ defmodule Cazoc.Mixfile do
      {:comeonin, "~> 1.6.0"},
      {:exrm, "~> 1.0.0-rc7"},
      {:git_cli, "~> 0.1.0"},
-     {:github_oauth, "~> 0.1.1"},
      {:pandex, "~> 0.1.0"},
-     {:qiita_ex, "~> 0.0.2"},
      {:timex, "~> 1.0.0"},
      {:timex_ecto, "~> 0.7.0"},
-     {:ueberauth_github, "~> 0.2"}]
+     {:ueberauth, "~> 0.2"},
+     {:ueberauth_github, "~> 0.2"}
+    ]
   end
 
   defp aliases do

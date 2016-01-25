@@ -1,14 +1,16 @@
 defmodule Cazoc.Article do
   use Cazoc.Web, :model
 
+  alias Cazoc.{Author, Comment, Repository}
+
   schema "articles" do
     field :title, :string
     field :body, :string
     field :cover, :string
     field :published_at, Timex.Ecto.DateTime
-    belongs_to :author, Cazoc.Author
-    belongs_to :repository, Cazoc.Repository
-    has_many :comments, Cazoc.Comment, on_delete: :delete_all
+    belongs_to :author, Author
+    belongs_to :repository, Repository
+    has_many :comments, Comment, on_delete: :delete_all
 
     timestamps
   end

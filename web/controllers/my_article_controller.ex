@@ -62,7 +62,6 @@ defmodule Cazoc.MyArticleController do
     case Repo.update(changeset) do
       {:ok, article} ->
         %Git.Repository{path: article.repository.path} |> update_repository(article)
-
         conn
         |> put_flash(:info, "Article updated successfully.")
         |> redirect(to: my_article_path(conn, :show, article))
@@ -91,8 +90,5 @@ defmodule Cazoc.MyArticleController do
     Path.join(article.repository.path, file_name) |> File.write(article.body)
     Git.add repo, "--all"
     Git.commit repo, "-m 'Update'"
-  end
-
-  defp new_dir_path(author) do
   end
 end
