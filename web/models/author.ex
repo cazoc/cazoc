@@ -1,7 +1,7 @@
 defmodule Cazoc.Author do
   use Cazoc.Web, :model
 
-  alias Cazoc.{Article, Family, Service}
+  alias Cazoc.{Article, Family, Repo, Service}
 
   schema "authors" do
     field :name, :string, null: false, uique: true
@@ -14,7 +14,7 @@ defmodule Cazoc.Author do
     field :token, :string
     field :ssh_key, :string
     field :type, :integer, defaults: 0
-    has_many :articles, Article, on_delete: :delete_all
+    has_many :articles, Article, on_delete: :nothing
     has_many :families, Family, on_delete: :delete_all
     has_many :services, Service, on_delete: :delete_all
 
@@ -62,5 +62,13 @@ defmodule Cazoc.Author do
   """
   def path(model) do
     Path.join("repositories", model.name)
+  end
+
+  @doc """
+  GitHub token
+  """
+  def token_github(model) do
+    service = Repo.get_by(Service, %{author_id: model.id, name: "github"})
+    if service, do: service.token
   end
 end
