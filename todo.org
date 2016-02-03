@@ -1,0 +1,123 @@
+* ING cazoc
+** TODO スケジューリング
+** ING 開発
+*** DONE 環境設定
+CLOSED: [2015-11-25 Wed 01:04]
+**** DONE ライブラリ
+CLOSED: [2015-11-25 Wed 01:04]
+- [X] haml
+  - https://github.com/chrismccord/phoenix_haml
+- [X] git
+  - https://github.com/carlosmn/geef
+    - わからん。いずれはこっちに移行
+  - [X] https://github.com/awetzel/gitex
+- [X] github
+  - https://github.com/lidashuang/github_oauth
+- [X] markdown
+  - https://github.com/pragdave/earmark
+- [X] qiita
+  - https://github.com/ma2gedev/qiita_ex
+- [X] highlight.js
+***** 参考
+- https://github.com/h4cc/awesome-elixir
+*** DONE model 実装
+CLOSED: [2015-12-06 Sun 23:06]
+- Repository repositories
+  - path:string
+- Service services
+  - name:string
+  - user:string
+  - token:string
+- Author authors
+  - name:string
+  - display_name:string
+  - icon:string
+  - email:string
+  - url:string
+  - password:string
+  - password_tmp:string
+  - token:string
+  - salt:string
+  - ssh_key:string
+  - type:integer
+    - normal:0
+    - developer:1 - turn on if github service is connected
+  - repository_id:references:repositories
+  - services has_many
+- Article articles
+  - author_id:references:authors
+  - title:string
+  - abstract:string
+  - body:text
+  - cover:string
+  - repository_id:references:repositories
+  - published_at:datetime
+- Comment comments
+  - article_id:references:articles
+  - author_id:references:authors
+  - message:text
+- Familiy families
+  - name:string
+  - author_id:references:authors
+  - repositories has_many
+- Blood blood
+  - parent_id:references:articles
+  - child_id:references:articles
+**** generator
+mix phoenix.gen.html Repository repositories path:string;
+mix phoenix.gen.html Service services name:string user:string token:string;
+mix phoenix.gen.html Author authors name:string display_name:string icon:string url:string email:string password:string password_tmp:string token:string salt:string ssh_key:string repository_id:references:repositories type:integer;
+mix phoenix.gen.html Article articles author_id:references:authors title:string abstract:string body:text cover:string repository_id:references:repositories published_at:datetime;
+mix phoenix.gen.html Comment comments article_id:references:articles author_id:references:authors message:text;
+mix phoenix.gen.html Family families name:string author_id:references:authors;
+mix phoenix.gen.html Blood blood parent_id:references:articles child_id:references:articles;
+*** TODO Base
+**** TODO Top
+- [X] Create a account
+- [ ] Write a article
+- [ ] recent articles
+**** TODO Author
+- [X] Login
+- [X] Create
+- [ ] profile
+**** TODO Article
+***** TODO Show
+- [ ] date
+- [ ] user
+- [ ] title
+- [ ] abstract
+- [ ] body
+- [ ] menu
+  - [ ] version
+  - [ ] comments
+***** TODO Create / Edit / Delete
+- [ ] fields
+  - [ ] title
+  - [ ] abstract
+  - [ ] body
+**** TODO Layout
+- [ ] header
+- [ ] footer
+- [ ] title
+- [ ] menu
+*** TODO design
+**** TODO colors
+- http://www.colordic.org/w/
+***** primary color
+- 甚三紅じんざもみ
+  - #ee827c
+***** acccent color
+- 瑠璃色るりいろ
+  - #1e50a2
+- 瑠璃紺るりこん
+  - #19448e
+***** base color
+- 肌色はだいろ
+  - #fce2c4
+***** text color
+- 黒くろ
+  - #2b2b2b
+*** TODO 機能
+**** TODO Git まわり
+**** TODO automatic tagging to articles
+**** TODO automatic abstracting, summing up of articles
