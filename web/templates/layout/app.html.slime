@@ -7,28 +7,25 @@ html lang="en"
     meta name="description" content=""
     meta name="author" content=""
     title Cazoc
-    link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css"
-    link href="https://fonts.googleapis.com/css?family=Forum" rel="stylesheet" type="text/css"
+    link href="https://fonts.googleapis.com/css?family=Muli:300" rel="stylesheet" type="text/css"
     link rel="stylesheet" href=static_path(@conn,"/css/app.css")
 
   body
-    .container
-      .header
-        ul.nav.nav-pills.pull-right
+    header.header
+      = if logged_in?(@conn) do
+        ul.nav.nav-pills.pull-xs-right
           li.dropdown role="presentation"
-            a.dropdown-toggle data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-              i.fa.fa-bars
-            ul.dropdown-menu.global_menu
-              = if logged_in?(@conn) do
-                li = current_author(@conn).name
-                li = link "Articles", to: my_article_path(@conn, :index)
-                li = link "Write a article", to: my_article_path(@conn, :new)
-                li = link "Logout", to: session_path(@conn, :delete), method: :delete
-              - else
-                li = link "Create a account", to: registration_path(@conn, :new)
-                li = link "Login", to: session_path(@conn, :new)
-        span.logo = link "Cazoc", to: top_path(@conn, :index)
+            a.dropdown-toggle data-toggle="dropdown" href="#" type="button" aria-haspopup="true" aria-expanded="false"
+              img.author-icon.img-circle src="#{current_author(@conn).icon}" alt="author icon"
+            ul.dropdown-menu.dropdown-menu-right.global_menu
+              li.dropdown-header = current_author(@conn).name
+              li.dropdown-divider
+              li.dropdown-item = link "Articles", to: my_article_path(@conn, :index)
+              li.dropdown-item = link "Write a article", to: my_article_path(@conn, :new)
+              li.dropdown-item = link "Logout", to: session_path(@conn, :delete), method: :delete
+      span.logo = link "Cazoc", to: top_path(@conn, :index)
 
+    .container
       p.alert.alert-info role="alert" = get_flash(@conn, :info)
       p.alert.alert-danger role="alert" = get_flash(@conn, :error)
 

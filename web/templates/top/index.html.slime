@@ -1,5 +1,20 @@
 .row.marketing.top
   .col-lg-12
+    = if logged_in?(@conn) do
+      h5 Import a exisiting repositoriy from GitHub.
+      table.table.table-sm.table-responsive
+        tbody
+          = for article <- @articles do
+            tr
+              td.subtitle = article |> Cazoc.Article.formated_publised_at
+              td = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
+              td = article.author.name
+    - else
+      h3 Cazoc is open article hosting service.
+        a.inline.sm href="#{auth_path(@conn, :request, :github)}"
+          .inline "Sign up or Sign in with GitHub "
+            i.fa.fa-github
+
     h5 Search articles
     = form_for @conn, search_path(@conn, :index), [as: :search, method: :get], fn f ->
       .form-group

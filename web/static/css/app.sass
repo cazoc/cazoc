@@ -16,7 +16,11 @@
 body
   margin-top: 10px
   margin-bottom: 10px
-  font-family: 'Oxygen', sans-serif
+  font-family: 'Muli', sans-serif
+  font-style: normal
+  font-variant: normal
+  font-weight: 200
+  line-height: 36px
 
   form, table
     margin-top: 10px
@@ -25,6 +29,9 @@ body
   pre
     background: #F0F0F0
     padding: 0.5em
+
+  h3
+    word-break: break-all
 
 /* Phoenix flash messages */
 .alert:empty
@@ -35,53 +42,35 @@ form.link,
 form.button
   display: inline
 
-/* Custom page header */
 .header
-  border-bottom: 1px solid #e5e5e5
-
-  .logo
-    width: 519px
-    height: 31px
-    display: inline-block
-    margin-bottom: 0.3em
-    font-size: 20px
-    // background-image: url("/images/phoenix.png")
-    background-size: 519px 71px
-    font-family: 'Forum', cursive
-
-  .global_menu li
-    padding: 0 6px
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing
   padding-right: 15px
   padding-left: 15px
 
-/* Customize container */
+  .logo
+    display: inline-block
+    margin-bottom: 0.3em
+    font-size: 20px
+
+  .author-icon
+    max-width: 32px
+
 @media (min-width: 768px)
   .container
-    max-width: 730px
-  td.article_list
-    max-width: 400px
-    overflow: scroll
+    max-width: 768px
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px)
-  /* Space out the masthead */
   .header
     margin-bottom: 10px
 
 .article_list
   vertical-align: middle !important
   border: none !important
+  max-width: 400px
+  overflow: scroll
 
 .recent_articles, .my_articles, .search_result
-  td
-    @extend .article_list
-
-h3
-  word-break: break-all
+  @extend .article_list
 
 article#marked-mathjax-preview-buffer, #marked-mathjax-preview
   border-top: 1px #333 solid

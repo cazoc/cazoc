@@ -1,9 +1,5 @@
 h2 Create a account
 
-a.btn.btn-primary href="#{auth_path(@conn, :request, :github)}"
-  .inline "Sign in with GitHub "
-    i.fa.fa-github
-
 = form_for @changeset, registration_path(@conn, :create), fn form ->
   = if @changeset.action do
     .alert.alert-danget
