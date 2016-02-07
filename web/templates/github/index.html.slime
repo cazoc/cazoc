@@ -1,0 +1,8 @@
+.github
+  table.table
+    tbody
+      = for r <- @repositories do
+        tr
+          td = link r.name, to: r[:url]
+          td
+            i.fa.fa-download

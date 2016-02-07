@@ -12,6 +12,7 @@ html lang="en"
 
   body
     header.header
+      span.logo = link "Cazoc", to: top_path(@conn, :index)
       = if logged_in?(@conn) do
         ul.nav.nav-pills.pull-xs-right
           li.dropdown role="presentation"
@@ -23,7 +24,6 @@ html lang="en"
               li.dropdown-item = link "Articles", to: my_article_path(@conn, :index)
               li.dropdown-item = link "Write a article", to: my_article_path(@conn, :new)
               li.dropdown-item = link "Logout", to: session_path(@conn, :delete), method: :delete
-      span.logo = link "Cazoc", to: top_path(@conn, :index)
 
     .container
       p.alert.alert-info role="alert" = get_flash(@conn, :info)

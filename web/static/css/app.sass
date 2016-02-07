@@ -12,6 +12,8 @@
 .subtitle
   font-size: 80%
 
+$container-width: 860px
+
 /* Space out content a bit */
 body
   margin-top: 10px
@@ -54,12 +56,12 @@ form.button
   .author-icon
     max-width: 32px
 
-@media (min-width: 768px)
+@media (min-width: $container-width)
   .container
-    max-width: 768px
+    max-width: $container-width
 
 /* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px)
+@media screen and (min-width: $container-width)
   .header
     margin-bottom: 10px
 

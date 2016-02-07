@@ -40,6 +40,7 @@ defmodule Cazoc.Router do
     delete "/delete/:id", MyArticleController, :delete
 
     get  "/search", SearchController, :index
+    get  "/github", GithubController, :index
   end
 
   scope "/auth", Cazoc do

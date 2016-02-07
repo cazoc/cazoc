@@ -1,7 +1,7 @@
-.row.marketing.top
+.row.top
   .col-lg-12
     = if logged_in?(@conn) do
-      h5 Import a exisiting repositoriy from GitHub.
+      h5 Import exisiting repositories from GitHub.
       table.table.table-sm.table-responsive
         tbody
           = for article <- @articles do
