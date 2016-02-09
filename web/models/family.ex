@@ -1,20 +1,23 @@
 defmodule Cazoc.Family do
   use Cazoc.Web, :model
 
+  alias Cazoc.{Article, Author, Collaborator, Repository}
+
   schema "families" do
     field :name, :string
     field :display_name, :string
     field :description, :string
     field :cover, :string
-    belongs_to :author, Cazoc.Author
-    has_many :articles, Cazoc.Article
-    has_many :collaborators, Cazoc.Collaborator
+    belongs_to :author, Author
+    belongs_to :repository, Repository
+    has_many :articles, Article
+    has_many :collaborators, Collaborator
 
     timestamps
   end
 
-  @required_fields ~w(name display_name description cover)
-  @optional_fields ~w()
+  @required_fields ~w(name display_name)
+  @optional_fields ~w(cover description)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

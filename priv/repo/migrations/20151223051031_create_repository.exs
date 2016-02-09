@@ -4,6 +4,8 @@ defmodule Cazoc.Repo.Migrations.CreateRepository do
   def change do
     create table(:repositories) do
       add :path, :string
+      add :source, :string
+      add :url, :string
 
       timestamps
     end

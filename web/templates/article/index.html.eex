@@ -4,10 +4,8 @@
   <thead>
     <tr>
       <th>Author</th>
-      <th>Title</th>
       <th>Body</th>
       <th>Cover</th>
-      <th>Repository</th>
       <th>Published at</th>
 
       <th></th>
@@ -17,10 +15,8 @@
 <%= for article <- @articles do %>
     <tr>
       <td><%= article.author_id %></td>
-      <td><%= article.title %></td>
       <td><%= article.body %></td>
       <td><%= article.cover %></td>
-      <td><%= article.repository_id %></td>
       <td><%= article.published_at |> Timex.DateFormat.format!("%Y-%m-%d %H:%M:%S", :strftime) %></td>
 
       <td class="text-right">

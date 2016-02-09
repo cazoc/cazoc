@@ -1,0 +1,8 @@
+= form_for @changeset, @action, fn f ->
+    = text_input f, :name, hidden: true
+    = text_input f, :display_name, hidden: true
+    = text_input f, :path, hidden: true, value: @changeset.model.repository.path
+    = text_input f, :url, hidden: true, value: @changeset.model.repository.url
+    = text_input f, :source, hidden: true, value: @changeset.model.repository.source
+    button type="submit"
+      i.fa.fa-download

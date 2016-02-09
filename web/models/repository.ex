@@ -3,12 +3,14 @@ defmodule Cazoc.Repository do
 
   schema "repositories" do
     field :path, :string
+    field :source, :string
+    field :url, :string
 
     timestamps
   end
 
   @required_fields ~w(path)
-  @optional_fields ~w()
+  @optional_fields ~w(source)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

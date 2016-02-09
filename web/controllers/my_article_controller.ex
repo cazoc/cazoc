@@ -24,11 +24,9 @@ defmodule Cazoc.MyArticleController do
     author = Session.current_author(conn)
     dir_name = now |> DateFormat.format!("%Y%m%d%H%M%S", :strftime)
     path = author |> Author.path |> Path.join(dir_name)
-    repository = %Repository{path: path}
-    result = with {:ok, repository} <- Repo.insert(repository),
-      article = %Article{author_id: author.id, repository_id: repository.id, published_at: now},
-      changeset = Article.changeset(article, article_params),
-      {:ok, article} <- Repo.insert(changeset),
+    article = %Article{author_id: author.id, published_at: now}
+    changeset = Article.changeset(article, article_params)
+    result = with {:ok, article} <- Repo.insert(changeset),
       {:ok, repo} <- init_and_commit(path, article),
       do: {:ok, repo}
 
