@@ -1,7 +1,8 @@
 defmodule Cazoc.GithubController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.{Author, Family, Repository, Session}
+  alias Cazoc.{Article, Author, Family, Repository, Session}
+  alias Timex.{Date, DateFormat}
 
   def index(conn, _params) do
     author = Session.current_author(conn)
@@ -24,7 +25,6 @@ defmodule Cazoc.GithubController do
 
   def import(conn, %{"family" => family_params}) do
     author = Session.current_author(conn)
-    IO.inspect family_params
     result = with {:ok, repo} <- Git.clone([family_params["source"], family_params["path"]]),
       repository = Repository.changeset(%Repository{}, family_params),
       {:ok, repository} <- Repo.insert(repository),
@@ -44,13 +44,81 @@ defmodule Cazoc.GithubController do
     end
   end
 
+  def sync(conn, %{"family" => family_params}) do
+    author = Session.current_author(conn)
+    family = Family.changeset(%Family{author_id: author.id}, family_params)
+    result = with {:ok, family} <- Repo.insert(family),
+      {:ok, articles, failed_paths} <- download_articles(author, family),
+      do: {:ok, articles, failed_paths}
+
+    case result do
+      {:ok, articles, failed_paths} ->
+        message = if length(failed_paths) == 0 do
+            "Repository synced successfully."
+          else
+            "Failed synced following files:\n#{failed_paths |> Enum.join("\n")}"
+          end
+        conn
+        |> put_flash(:info, message)
+        |> redirect(to: my_article_path(conn, :index))
+      {:error, _} ->
+        conn
+        |> put_flash(:info, "Failed to sync repository.")
+        |> redirect(to: github_path(conn, :index))
+    end
+  end
+
   def delete(conn, %{"id" => id}) do
-    familty = Repo.get!(Family, id) |> Repo.preload(:repository)
+    family = Repo.get!(Family, id) |> Repo.preload(:repository)
     File.rm_rf family.repository.path
     Repo.delete!(family)
 
     conn
     |> put_flash(:info, "Family deleted successfully.")
     |> redirect(to: github_path(conn, :index))
+  end
+
+  defp download_articles(author, family) do
+    client = Tentacat.Client.new %{access_token: Author.token_github(author)}
+    {owner, repo, branch} = {author.name, family.name, "master"}
+    trees = Tentacat.Trees.find_recursive owner, repo, branch, client
+    files = trees["tree"] |> Enum.filter(&(is_valid_file &1))
+    result = files |> Enum.map(&(download_article author, family, &1["path"]))
+    articles = result
+    |> Enum.filter(&(elem(&1, 0) == :ok))
+    |> Enum.map(&(elem(&1, 1)))
+    |> Enum.map(&(&1 |> Repo.preload(:author)))
+    failed_paths = result
+    |> Enum.filter(&(elem(&1, 0) == :error))
+    |> Enum.map(&(elem(&1, 1)))
+    {:ok, articles, failed_paths}
+  end
+
+  defp download_article(author, family, path) do
+    client = Tentacat.Client.new(%{access_token: Author.token_github(author)})
+    {owner, repo} = {author.name, family.name}
+    content = Tentacat.Contents.find(owner, repo, path, client)
+    if is_valid_content(content) do
+      body = content["content"]
+      |> String.split("\n", trim: true)
+      |> Enum.map(&(Base.decode64(&1)))
+      |> Enum.map(&(elem(&1, 1)))
+      |> Enum.join
+      title = "Title"
+      article_params = %{body: body, published_at: Date.now, path: path, sha: content["sha"], title: title}
+      Article.changeset(%Article{author_id: author.id, family_id: family.id}, article_params)
+      |> Repo.insert
+    else
+      IO.inspect content
+      {:error, path}
+    end
+  end
+
+  defp is_valid_content(content) do
+    is_map(content) and content["encoding"] == "base64" and content["type"] == "file"
+  end
+
+  defp is_valid_file(file) do
+    file["type"] == "blob" and file["path"] =~ ~r/.+\.(md|org)$/
   end
 end

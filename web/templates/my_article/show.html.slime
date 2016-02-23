@@ -1,6 +1,6 @@
 = render "marked.html"
 
-h3.m-b-1 = @article.title
+h3.m-b-1 = Cazoc.Article.title(@article)
 
 textarea id="marked-mathjax-input" hidden="true" name="comment"
   = @article.body

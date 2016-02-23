@@ -1,8 +1,9 @@
 .github
+  h5 Import a repository from GitHub
   table.table
     tbody
       = for f <- @families do
         tr
           td = link f.model.name, to: f.model.repository.url
           td
-            = render "form.html", changeset: f, action: github_path(@conn, :import)
+            = render "form.html", changeset: f, action: github_path(@conn, :sync)

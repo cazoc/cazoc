@@ -22,15 +22,15 @@ html lang="en"
               li.dropdown-header = current_author(@conn).name
               li.dropdown-divider
               li.dropdown-item = link "Articles", to: my_article_path(@conn, :index)
-              li.dropdown-item = link "Write a article", to: my_article_path(@conn, :new)
+              li.dropdown-item = link "Import", to: github_path(@conn, :index)
               li.dropdown-item = link "Logout", to: session_path(@conn, :delete), method: :delete
 
     .container
       p.alert.alert-info role="alert" = get_flash(@conn, :info)
       p.alert.alert-danger role="alert" = get_flash(@conn, :error)
 
-      main role="main"
-        = render @view_module, @view_template, assigns
+    main role="main"
+      = render @view_module, @view_template, assigns
 
     script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"
     script src=static_path(@conn,"/js/app.js")

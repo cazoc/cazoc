@@ -5,17 +5,20 @@ defmodule Cazoc.Article do
 
   schema "articles" do
     field :body, :string
+    field :title, :string
     field :cover, :string
     field :path, :string
+    field :sha, :string
     field :published_at, Timex.Ecto.DateTime
     belongs_to :author, Author
+    belongs_to :family, Family
     has_many :comments, Comment, on_delete: :delete_all
 
     timestamps
   end
 
-  @required_fields ~w(path, published_at)
-  @optional_fields ~w(body cover)
+  @required_fields ~w(path published_at sha)
+  @optional_fields ~w(body cover title)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

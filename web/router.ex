@@ -42,7 +42,8 @@ defmodule Cazoc.Router do
     get  "/search", SearchController, :index
 
     get  "/github", GithubController, :index
-    post "/github", GithubController, :import
+    #post "/github", GithubController, :import
+    post "/github", GithubController, :sync
     delete "/github", GithubController, :delete
   end
 

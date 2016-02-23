@@ -1,34 +1,38 @@
-.row.top
-  .col-lg-12
-    = if logged_in?(@conn) do
-      h5 Import exisiting repositories from GitHub.
-      table.table.table-sm.table-responsive
+.top
+  = if not logged_in?(@conn) do
+    .page-header.m-b-1.p-t-3.p-b-3
+      .container
+        h3 Cazoc is open article hosting service.
+        a href="#{auth_path(@conn, :request, :github)}" "Sign up or Sign in with GitHub "
+          i.fa.fa-github
+
+  .container
+    .col-lg-12
+      = if logged_in?(@conn) do
+        h5 Your families
+        = if length(@families) > 0 do
+          table.table.table-sm.table-responsive
+            tbody
+              = for family <- @families do
+                tr
+                  td = link family.name, to: family_path(@conn, :show, family), class: "btn btn-default btn-xs"
+        - else
+          = link "Import exisiting repositories from GitHub.", to: github_path(@conn, :index)
+
+      h5 Search articles
+      = form_for @conn, search_path(@conn, :index), [as: :search, method: :get], fn f ->
+        .form-group
+          = text_input f, :keyword, class: "form-control"
+        .form-group
+          = submit "Search", class: "btn btn-primary btn-sm"
+
+      /h6 Features families
+
+      h5.m-t-3 Recent articles
+      table.table.table-sm.table-responsive.recent_articles
         tbody
           = for article <- @articles do
             tr
               td.subtitle = article |> Cazoc.Article.formated_publised_at
-              td = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
+              td = link Cazoc.Article.title(article), to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
               td = article.author.name
-    - else
-      h3 Cazoc is open article hosting service.
-        a.inline.sm href="#{auth_path(@conn, :request, :github)}"
-          .inline "Sign up or Sign in with GitHub "
-            i.fa.fa-github
-
-    h5 Search articles
-    = form_for @conn, search_path(@conn, :index), [as: :search, method: :get], fn f ->
-      .form-group
-        = text_input f, :keyword, class: "form-control"
-      .form-group
-        = submit "Search", class: "btn btn-primary btn-sm"
-
-    /h6 Features families
-
-    h5.m-t-3 Recent articles
-    table.table.table-sm.table-responsive.recent_articles
-      tbody
-        = for article <- @articles do
-          tr
-            td.subtitle = article |> Cazoc.Article.formated_publised_at
-            td = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
-            td = article.author.name
