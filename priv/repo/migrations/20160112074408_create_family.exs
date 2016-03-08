@@ -14,6 +14,7 @@ defmodule Cazoc.Repo.Migrations.CreateFamily do
     end
     create index(:families, [:author_id])
     create index(:families, [:repository_id])
+    create unique_index(:families, [:name, :author_id], name: :families_name_author_id_index)
 
   end
 end

@@ -29,6 +29,7 @@ defmodule Cazoc.Article do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> unique_constraint(:path, name: :articles_path_family_id_index)
   end
 
   def formated_publised_at(model) do

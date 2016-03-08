@@ -46,8 +46,10 @@ defmodule Cazoc.GithubController do
 
   def sync(conn, %{"family" => family_params}) do
     author = Session.current_author(conn)
-    family = Family.changeset(%Family{author_id: author.id}, family_params)
-    result = with {:ok, family} <- Repo.insert(family),
+    family = Repo.get_by(Family, author_id: author.id, name: family_params["name"])
+    family = if is_nil(family), do: %Family{author_id: author.id}, else: family
+    family = Family.changeset(family, family_params)
+    result = with {:ok, family} <- Repo.insert_or_update(family),
       {:ok, articles, failed_paths} <- download_articles(author, family),
       do: {:ok, articles, failed_paths}
 
@@ -82,8 +84,10 @@ defmodule Cazoc.GithubController do
     client = Tentacat.Client.new %{access_token: Author.token_github(author)}
     {owner, repo, branch} = {author.name, family.name, "master"}
     trees = Tentacat.Trees.find_recursive owner, repo, branch, client
-    files = trees["tree"] |> Enum.filter(&(is_valid_file &1))
-    result = files |> Enum.map(&(download_article author, family, &1["path"]))
+    result = trees["tree"]
+    |> Enum.filter(&(is_valid_file &1))
+    |> Enum.filter(&(is_nil Repo.get_by(Article, family_id: family.id, path: &1["path"], sha: &1["sha"])))
+    |> Enum.map(&(download_article author, family, &1["path"], &1["sha"]))
     articles = result
     |> Enum.filter(&(elem(&1, 0) == :ok))
     |> Enum.map(&(elem(&1, 1)))
@@ -94,10 +98,9 @@ defmodule Cazoc.GithubController do
     {:ok, articles, failed_paths}
   end
 
-  defp download_article(author, family, path) do
+  defp download_article(author, family, path, sha) do
     client = Tentacat.Client.new(%{access_token: Author.token_github(author)})
-    {owner, repo} = {author.name, family.name}
-    content = Tentacat.Contents.find(owner, repo, path, client)
+    content = Tentacat.Contents.find(author.name, family.name, path, client)
     if is_valid_content(content) do
       body = content["content"]
       |> String.split("\n", trim: true)
@@ -106,8 +109,10 @@ defmodule Cazoc.GithubController do
       |> Enum.join
       title = "Title"
       article_params = %{body: body, published_at: Date.now, path: path, sha: content["sha"], title: title}
-      Article.changeset(%Article{author_id: author.id, family_id: family.id}, article_params)
-      |> Repo.insert
+      article = Repo.get_by(Article, family_id: family.id, path: path)
+      if is_nil(article), do: article = %Article{author_id: author.id, family_id: family.id}
+      Article.changeset(article, article_params)
+      |> Repo.insert_or_update
     else
       IO.inspect content
       {:error, path}

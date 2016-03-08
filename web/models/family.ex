@@ -28,5 +28,6 @@ defmodule Cazoc.Family do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> unique_constraint(:name, name: :families_name_author_id_index)
   end
 end
