@@ -107,7 +107,8 @@ defmodule Cazoc.GithubController do
       |> Enum.map(&(Base.decode64(&1)))
       |> Enum.map(&(elem(&1, 1)))
       |> Enum.join
-      title = "Title"
+      title = parse_title body, path
+      IO.inspect title
       article_params = %{body: body, published_at: Date.now, path: path, sha: content["sha"], title: title}
       article = Repo.get_by(Article, family_id: family.id, path: path)
       if is_nil(article), do: article = %Article{author_id: author.id, family_id: family.id}
@@ -119,11 +120,31 @@ defmodule Cazoc.GithubController do
     end
   end
 
+  defp parse_title(body, path) do
+    default = "Title"
+    pattern = title_pattern(path)
+    if pattern do
+      captured = Regex.named_captures(pattern, body, capture: :first)
+      if captured, do: captured["title"], else: default
+    else
+      default
+    end
+  end
+
+  defp title_matcher(path) do
+    cond do
+      path =~ ~r/.+\.org$/ ->
+        ~r/#\+title: (?<title>[^\n]+)/i
+      path =~ ~r/.+\.(md|markdown)$/ ->
+        ~r/^% (?<title>[^\n]+)/
+    end
+  end
+
   defp is_valid_content(content) do
     is_map(content) and content["encoding"] == "base64" and content["type"] == "file"
   end
 
   defp is_valid_file(file) do
-    file["type"] == "blob" and file["path"] =~ ~r/.+\.(md|org)$/
+    file["type"] == "blob" and file["path"] =~ ~r/.+\.(md|markdown|org)$/
   end
 end

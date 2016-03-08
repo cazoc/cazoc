@@ -69,8 +69,7 @@ defmodule Cazoc.MyArticleController do
   end
 
   def delete(conn, %{"id" => id}) do
-    article = Repo.get!(Article, id) |> Repo.preload(:repository)
-    File.rm_rf article.repository.path
+    article = Repo.get!(Article, id)
     Repo.delete!(article)
 
     conn
