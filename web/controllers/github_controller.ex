@@ -16,8 +16,7 @@ defmodule Cazoc.GithubController do
                             path: Path.join(author |> Author.path, &1["name"]),
                             url: &1["html_url"],
                             source: &1["clone_url"]
-                          }
-                         }))
+                          }}))
     |> Enum.map(&(%{&1 | name: if(String.starts_with?(&1.display_name, "#{author.name}/"), do: &1.name, else: &1.display_name)}))
     |> Enum.map(&(Family.changeset(&1)))
     render(conn, :index, families: families)
@@ -122,7 +121,7 @@ defmodule Cazoc.GithubController do
 
   defp parse_title(body, path) do
     default = "Title"
-    pattern = title_pattern path
+    pattern = title_pattern Article.format(path)
     if pattern do
       captured = Regex.named_captures(pattern, body, capture: :first)
       if captured, do: captured["title"], else: default
@@ -131,12 +130,11 @@ defmodule Cazoc.GithubController do
     end
   end
 
-  defp title_pattern(path) do
-    cond do
-      path =~ ~r/.+\.org$/ ->
-        ~r/#\+title: (?<title>[^\n]+)/i
-      path =~ ~r/.+\.(md|markdown)$/ ->
-        ~r/^% (?<title>[^\n]+)/
+  defp title_pattern(format) do
+    case format do
+      :org -> ~r/#\+title: (?<title>[^\n]+)/i
+      :md -> ~r/^% (?<title>[^\n]+)/
+      :other -> nil
     end
   end
 
@@ -145,6 +143,6 @@ defmodule Cazoc.GithubController do
   end
 
   defp is_valid_file(file) do
-    file["type"] == "blob" and file["path"] =~ ~r/.+\.(md|markdown|org)$/
+    file["type"] == "blob" and Article.is_valid_format(file["path"])
   end
 end

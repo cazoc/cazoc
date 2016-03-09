@@ -44,7 +44,16 @@ defmodule Cazoc.MyArticleController do
 
   def show(conn, %{"id" => id}) do
     article = Repo.get!(Article, id) |> Repo.preload(:author)
-    render(conn, "show.html", article: article)
+    result = Article.html_body article
+    case result do
+      {:ok, body} ->
+        conn
+        |> render("show.html", article: article, body: body)
+      {:error, _} ->
+        conn
+        |> put_flash(:info, "Failed to load article.")
+        |> redirect(to: my_article_path(conn, :index))
+    end
   end
 
   def edit(conn, %{"id" => id}) do

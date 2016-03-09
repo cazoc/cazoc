@@ -37,9 +37,25 @@ defmodule Cazoc.Article do
   end
 
   @doc """
-  Title
+  Convert to HTML
   """
-  def title(model) do
-    "title"
+  def html_body(model) do
+    case format(model.path) do
+      :org -> Pandex.convert_string model.body, "org"
+      :md -> Pandex.convert_string model.body
+      :other -> model.body
+    end
+  end
+
+  def format(path) do
+    cond do
+      path =~ ~r/.+\.org$/ -> :org
+      path =~ ~r/.+\.(md|markdown)$/ -> :md
+      true -> :other
+    end
+  end
+
+  def is_valid_format(path) do
+    path =~ ~r/.+\.(md|markdown|org)$/
   end
 end
