@@ -1,7 +1,0 @@
-.row.marketing
-  .col-lg-6
-    h4 Models
-    ul
-      = for model <- models do
-        li
-          a href="/admin/#{model}" = model

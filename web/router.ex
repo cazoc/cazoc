@@ -1,5 +1,6 @@
 defmodule Cazoc.Router do
   use Cazoc.Web, :router
+  use ExAdmin.Router
   require Ueberauth
 
   pipeline :browser do
@@ -12,6 +13,12 @@ defmodule Cazoc.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  # setup the ExAdmin routes
+  scope "/admin", ExAdmin do
+    pipe_through :browser
+    admin_routes
   end
 
   scope "/", Cazoc do
@@ -45,6 +52,14 @@ defmodule Cazoc.Router do
     #post "/github", GithubController, :import
     post "/github", GithubController, :sync
     delete "/github", GithubController, :delete
+
+    resources "/articles", ArticleController
+    resources "/authors", AuthorController
+    resources "/collaborators", CollaboratorController
+    resources "/comments", CommentController
+    resources "/repositories", RepositoryController
+    resources "/families", FamilyController
+    resources "/services", ServiceController
   end
 
   scope "/auth", Cazoc do
@@ -54,19 +69,6 @@ defmodule Cazoc.Router do
     get "/:provider/callback", AuthController, :callback
     post "/:provider/callback", AuthController, :callback
     delete "/logout", AuthController, :delete
-  end
-
-  scope "/admin", Cazoc do
-    pipe_through :browser
-
-    get "/", AdminController, :index
-    resources "/authors", AuthorController
-    resources "/repositories", RepositoryController
-    resources "/articles", ArticleController
-    resources "/comments", CommentController
-    resources "/services", ServiceController
-    resources "/families", FamilyController
-    resources "/collaborators", CollaboratorController
   end
 
   scope "/api", Cazoc do

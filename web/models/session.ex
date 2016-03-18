@@ -12,9 +12,6 @@ defmodule Cazoc.Session do
     end
   end
 
-  @doc """
-  Authenticate
-  """
   defp authenticate(author, password) do
     case author do
       nil -> false

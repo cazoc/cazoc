@@ -36,3 +36,20 @@ config :ueberauth, Ueberauth,
   providers: [
     github: { Ueberauth.Strategy.Github, [default_scope: "user:email,public_repo"] }
   ]
+
+config :ex_admin,
+  repo: Cazoc.Repo,
+  module: Cazoc,
+  modules: [
+    Cazoc.ExAdmin.Dashboard,
+    Cazoc.ExAdmin.Article,
+    Cazoc.ExAdmin.Author,
+    Cazoc.ExAdmin.Comment,
+    Cazoc.ExAdmin.Collaborator,
+    Cazoc.ExAdmin.Family,
+    Cazoc.ExAdmin.Repository,
+    Cazoc.ExAdmin.Service
+  ]
+
+config :xain, :quote, "'"
+config :xain, :after_callback, {Phoenix.HTML, :raw}

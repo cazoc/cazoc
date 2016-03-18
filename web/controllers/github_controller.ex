@@ -108,7 +108,7 @@ defmodule Cazoc.GithubController do
       |> Enum.join
       title = parse_title body, path
       IO.inspect title
-      article_params = %{body: body, published_at: Date.now, path: path, sha: content["sha"], title: title}
+      article_params = %{body: body, published_at: Ecto.DateTime.local, path: path, sha: content["sha"], title: title}
       article = Repo.get_by(Article, family_id: family.id, path: path)
       if is_nil(article), do: article = %Article{author_id: author.id, family_id: family.id}
       Article.changeset(article, article_params)
