@@ -19,6 +19,7 @@ defmodule Cazoc.Mixfile do
   def application do
     [mod: {Cazoc, []},
      applications: [:comeonin,
+                    :connection,
                     :cowboy,
                     :gettext,
                     :git_cli,
