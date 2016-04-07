@@ -1,6 +1,0 @@
-<h2>Edit family</h2>
-
-<%= render "form.html", changeset: @changeset,
-                        action: family_path(@conn, :update, @family) %>
-
-<%= link "Back", to: family_path(@conn, :index) %>
