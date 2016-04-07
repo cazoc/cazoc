@@ -2,7 +2,6 @@ defmodule Cazoc.GithubController do
   use Cazoc.Web, :controller
 
   alias Cazoc.{Article, Author, Family, Repository, Session}
-  alias Timex.{Date, DateFormat}
 
   def index(conn, _params) do
     author = Session.current_author(conn)
@@ -24,49 +23,26 @@ defmodule Cazoc.GithubController do
 
   def import(conn, %{"family" => family_params}) do
     author = Session.current_author(conn)
-    result = with {:ok, _} <- Git.clone([family_params["source"], family_params["path"]]),
-    repository = Repository.changeset(%Repository{}, family_params),
-    {:ok, repository} <- Repo.insert(repository),
-    family = Family.changeset(%Family{repository_id: repository.id, author_id: author.id}, family_params),
-    {:ok, family} <- Repo.insert(family),
-    do: {:ok, family}
+    result = with {:ok, repository} <- insert_or_update_repository(author, family_params),
+      {:ok, family} <- insert_or_update_family(author, family_params, repository),
+      {:ok, articles, failed_paths} <- download_articles(author, family),
+      do: {:ok, articles, failed_paths}
 
-  case result do
-    {:ok, family} ->
-      conn
-      |> put_flash(:info, "Repository imported successfully.")
-      |> render(conn, :import, family: family)
-    {:error, _} ->
-      conn
-      |> put_flash(:info, "Failed to import repository.")
-      |> redirect(to: github_path(conn, :index))
-  end
-  end
-
-  def sync(conn, %{"family" => family_params}) do
-    author = Session.current_author(conn)
-    family = Repo.get_by(Family, author_id: author.id, name: family_params["name"])
-    family = if is_nil(family), do: %Family{author_id: author.id}, else: family
-    family = Family.changeset(family, family_params)
-    result = with {:ok, family} <- Repo.insert_or_update(family),
-    {:ok, articles, failed_paths} <- download_articles(author, family),
-    do: {:ok, articles, failed_paths}
-
-  case result do
-    {:ok, _, failed_paths} ->
-      message = if length(failed_paths) == 0 do
-          "Repository synced successfully."
-        else
-          "Failed synced following files:\n#{failed_paths |> Enum.join("\n")}"
-        end
-      conn
-      |> put_flash(:info, message)
-      |> redirect(to: my_article_path(conn, :index))
-    {:error, _} ->
-      conn
-      |> put_flash(:info, "Failed to sync repository.")
-      |> redirect(to: github_path(conn, :index))
-  end
+    case result do
+      {:ok, _, failed_paths} ->
+        message = if length(failed_paths) == 0 do
+            "Repository synced successfully."
+          else
+            "Failed synced following files:\n#{failed_paths |> Enum.join("\n")}"
+          end
+        conn
+        |> put_flash(:info, message)
+        |> redirect(to: my_article_path(conn, :index))
+      {:error, _} ->
+        conn
+        |> put_flash(:info, "Failed to sync repository.")
+        |> redirect(to: github_path(conn, :index))
+    end
   end
 
   def delete(conn, %{"id" => id}) do
@@ -77,6 +53,24 @@ defmodule Cazoc.GithubController do
     conn
     |> put_flash(:info, "Family deleted successfully.")
     |> redirect(to: github_path(conn, :index))
+  end
+
+  defp insert_or_update_repository(author, family_params) do
+    case Repo.get_by(Family, author_id: author.id, name: family_params["name"]) do
+      nil -> %Repository{}
+      family -> family.repository
+    end
+    |> Repository.changeset(family_params)
+    |> Repo.insert_or_update
+  end
+
+  defp insert_or_update_family(author, family_params, repository) do
+    case Repo.get_by(Family, author_id: author.id, name: family_params["name"]) do
+      nil -> %Family{author_id: author.id, repository_id: repository.id}
+      family -> family
+    end
+    |> Family.changeset(family_params)
+    |> Repo.insert_or_update
   end
 
   defp download_articles(author, family) do
