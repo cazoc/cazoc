@@ -21,7 +21,7 @@ html lang="en"
             ul.dropdown-menu.dropdown-menu-right.global_menu
               li.dropdown-header = current_author(@conn).name
               li.dropdown-divider
-              li.dropdown-item = link "Articles", to: my_article_path(@conn, :index)
+              li.dropdown-item = link "Families", to: my_family_path(@conn, :index)
               li.dropdown-item = link "Import", to: github_path(@conn, :index)
               li.dropdown-item = link "Logout", to: session_path(@conn, :delete), method: :delete
 

@@ -1,7 +1,10 @@
 .github
-  table.table
-    tbody
-      = for article <- @family.articles do
-        tr
-          td = link article.title, to: article.path
-          td = article.author.name
+  .container
+    .col-lg-12
+      .table-responsive
+        table.table.table-striped.families
+          tbody
+            = for article <- @family.articles do
+              tr
+                td = link article.title, to: article.path
+                td = article.author.name

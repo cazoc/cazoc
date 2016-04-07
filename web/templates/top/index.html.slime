@@ -11,11 +11,12 @@
       = if logged_in?(@conn) do
         h5 Your families
         = if length(@families) > 0 do
-          table.table.table-sm.table-responsive
-            tbody
-              = for family <- @families do
-                tr
-                  td = link family.name, to: family_path(@conn, :show, family), class: "btn btn-default btn-xs"
+          .table-responsive
+            table.table.table-striped.families
+              tbody
+                = for family <- @families do
+                  tr
+                    td = link family.name, to: my_family_path(@conn, :show, family), class: "btn btn-default btn-xs"
         - else
           = link "Import exisiting repositories from GitHub.", to: github_path(@conn, :index)
 
@@ -29,10 +30,13 @@
       /h6 Features families
 
       h5.m-t-3 Recent articles
-      table.table.table-sm.table-responsive.recent_articles
-        tbody
-          = for article <- @articles do
-            tr
-              td.subtitle = article |> Cazoc.Article.formated_publised_at
-              td = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
-              td = article.author.name
+      .table-responsive
+        table.table.table-striped.articles
+          tbody
+            = for article <- @articles do
+              tr
+                td.subtitle = article |> Cazoc.Article.formated_publised_at
+                td = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
+                td
+                  = article.author.name
+                  img.m-l-1.author-icon.img-circle src="#{article.author.icon}" alt="author icon"

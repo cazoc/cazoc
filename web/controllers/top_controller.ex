@@ -4,8 +4,15 @@ defmodule Cazoc.TopController do
   alias Cazoc.{Article, Author, Family, Session}
 
   def index(conn, _params) do
-    families = Repo.all from family in Family,
+    families = if Session.logged_in?(conn) do
+      Repo.all from family in Family,
+      join: author in assoc(family, :author),
+      where: author.id == ^Session.current_author(conn).id,
+      preload: [author: author],
       order_by: family.updated_at
+    else
+      []
+    end
 
     articles = Repo.all from article in Article,
       join: author in assoc(article, :author),
