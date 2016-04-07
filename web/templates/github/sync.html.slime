@@ -1,7 +1,0 @@
-.github
-  table.table
-    tbody
-      = for article <- @articles do
-        tr
-          td = link article.title, to: article.path
-          td = article.author.name
