@@ -37,28 +37,18 @@ defmodule Cazoc.Router do
   scope "/", Cazoc do
     pipe_through :browser # Use the default browser stack
 
-    get  "/articles", MyArticleController, :index
-    get  "/edit/:id", MyArticleController, :edit
-    get  "/write", MyArticleController, :new
-    post "/write", MyArticleController, :create
-    get  "/articles/:id", MyArticleController, :show
-    patch "/update/:id", MyArticleController, :update
-    put "/update/:id", MyArticleController, :update
-    delete "/delete/:id", MyArticleController, :delete
-
     get  "/search", SearchController, :index
 
     get  "/github", GithubController, :index
-    #post "/github", GithubController, :import
-    post "/github", GithubController, :sync
+    post "/github", GithubController, :import
     delete "/github", GithubController, :delete
 
-    resources "/articles", ArticleController
     resources "/authors", AuthorController
+    resources "/articles", MyArticleController
     resources "/collaborators", CollaboratorController
     resources "/comments", CommentController
+    resources "/families", MyFamilyController
     resources "/repositories", RepositoryController
-    resources "/families", FamilyController
     resources "/services", ServiceController
   end
 
@@ -77,9 +67,9 @@ defmodule Cazoc.Router do
     scope "/v1", as: :v1 do
       resources "/authors", AuthorController, only: [:index, :show]
       resources "/repositories", RepositoryController, only: [:index, :show]
-      resources "/articles", ArticleController, only: [:index, :show]
+      resources "/articles", MyArticleController, only: [:index, :show]
       resources "/comments", CommentController, only: [:index, :show]
-      resources "/families", FamilyController, only: [:index, :show]
+      resources "/families", MyFamilyController, only: [:index, :show]
       resources "/collaborators", CollaboratorController, only: [:index, :show]
     end
   end
