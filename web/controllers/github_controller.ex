@@ -58,7 +58,7 @@ defmodule Cazoc.GithubController do
   defp insert_or_update_repository(author, family_params) do
     case Repo.get_by(Family, author_id: author.id, name: family_params["name"]) do
       nil -> %Repository{}
-      family -> family.repository
+      family -> Repo.preload(family, :repository).repository
     end
     |> Repository.changeset(family_params)
     |> Repo.insert_or_update
