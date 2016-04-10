@@ -7,9 +7,9 @@ defmodule Cazoc.MyFamilyController do
 
   def index(conn, _params) do
     families = Repo.all from family in Family,
-    join: author in assoc(family, :author),
-    where: author.id == ^Session.current_author(conn).id,
-    preload: [author: author]
+      join: author in assoc(family, :author),
+      where: author.id == ^Session.current_author(conn).id,
+      preload: [author: author]
     families = families |> Repo.preload(:articles) |> Repo.preload(:repository) |> Repo.preload(:collaborators)
     render(conn, :index, families: families)
   end

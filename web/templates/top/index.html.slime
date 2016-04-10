@@ -20,15 +20,6 @@
         - else
           = link "Import exisiting repositories from GitHub.", to: github_path(@conn, :index)
 
-      h5 Search articles
-      = form_for @conn, search_path(@conn, :index), [as: :search, method: :get], fn f ->
-        .form-group
-          = text_input f, :keyword, class: "form-control"
-        .form-group
-          = submit "Search", class: "btn btn-primary btn-sm"
-
-      /h6 Features families
-
       h5.m-t-3 Recent articles
       .table-responsive
         table.table.table-striped.articles
