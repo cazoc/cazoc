@@ -2,7 +2,7 @@
   = if not logged_in?(@conn) do
     .page-header.p-y-3
       .container
-        h3 Cazoc is open article hosting service.
+        h3 Cazoc is open-article hosting service.
         = link to: auth_path(@conn, :request, :github) do
           = "Sign up or Sign in with GitHub "
           i.fa.fa-github
@@ -31,5 +31,5 @@
                 td.subtitle = article |> Cazoc.Article.formated_publised_at
                 td = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
                 td
-                  = article.author.name
+                  = article.author.display_name
                   img.m-l-1.author-icon.img-circle src="#{article.author.icon}" alt="author icon"

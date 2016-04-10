@@ -1,6 +1,15 @@
-h3.m-b-1 = @article.title
-= raw @body
+.myarticle
+  .page-header.p-y-1
+    .container
+      h2 = @article.title
+      = "by " <> @article.author.display_name
+      img.m-l-1.author-icon.img-circle src="#{@article.author.icon}" alt="author icon"
+      aside.m-r-1
+        = Cazoc.Article.formated_publised_at @article
+      = if @article.author == current_author(@conn) do
+        = link "Edit", to: my_article_path(@conn, :edit, @article)
 
-= if @article.author == current_author(@conn) do
-  = link "Edit", to: my_article_path(@conn, :edit, @article)
-  = link " Back", to: my_article_path(@conn, :index)
+  .container
+    .col-lg-12.p-t-1
+      article
+        = raw @body
