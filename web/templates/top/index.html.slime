@@ -1,13 +1,15 @@
 .top
   = if not logged_in?(@conn) do
-    .page-header.m-b-1.p-t-3.p-b-3
+    .page-header.p-y-3
       .container
         h3 Cazoc is open article hosting service.
-        a href="#{auth_path(@conn, :request, :github)}" "Sign up or Sign in with GitHub "
+        = link to: auth_path(@conn, :request, :github) do
+          = "Sign up or Sign in with GitHub "
           i.fa.fa-github
+        end
 
   .container
-    .col-lg-12
+    .col-lg-12.p-t-1
       = if logged_in?(@conn) do
         h5 Your families
         = if length(@families) > 0 do
@@ -20,7 +22,7 @@
         - else
           = link "Import exisiting repositories from GitHub.", to: github_path(@conn, :index)
 
-      h5.m-t-3 Recent articles
+      h5.m-t-2 Recent articles
       .table-responsive
         table.table.table-striped.articles
           tbody

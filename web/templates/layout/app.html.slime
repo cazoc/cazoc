@@ -10,7 +10,7 @@ html lang="en"
     link href="https://fonts.googleapis.com/css?family=Muli:300" rel="stylesheet" type="text/css"
     link rel="stylesheet" href=static_path(@conn,"/css/app.css")
 
-  body.p-t-3.m-t-2.m-b-2
+  body
     nav.navbar.navbar-light.navbar-fixed-top
       = link "Cazoc", to: top_path(@conn, :index), class: "navbar-brand p-y-0"
       = form_for @conn, search_path(@conn, :index), [as: :search, method: :get, class: "form-inline pull-xs-left"], fn f ->
@@ -28,8 +28,8 @@ html lang="en"
               li.dropdown-item = link "Logout", to: session_path(@conn, :delete), method: :delete
 
     .container
-      p.alert.alert-info role="alert" = get_flash(@conn, :info)
-      p.alert.alert-danger role="alert" = get_flash(@conn, :error)
+      p.alert.alert-info.text-xs-center role="alert" = get_flash(@conn, :info)
+      p.alert.alert-danger.text-xs-center role="alert" = get_flash(@conn, :error)
 
     main role="main"
       = render @view_module, @view_template, assigns

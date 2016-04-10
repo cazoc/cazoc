@@ -33,7 +33,11 @@ defmodule Cazoc.MyFamilyController do
   end
 
   def show(conn, %{"id" => id}) do
-    family = Repo.get!(Family, id) |> Repo.preload(:author) |> Repo.preload(:articles) |> Repo.preload(:collaborators)
+    family = Repo.get!(Family, id)
+    |> Repo.preload(:author)
+    |> Repo.preload(:articles)
+    |> Repo.preload(:repository)
+    |> Repo.preload(:collaborators)
     render(conn, :show, family: family)
   end
 
