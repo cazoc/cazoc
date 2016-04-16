@@ -3,6 +3,7 @@
     .page-header.p-y-3
       .container
         h3 Cazoc is open-article hosting service.
+        aside Sync to your GitHub's repository. Markdown, AsciiDoc and org files.
         = link to: auth_path(@conn, :request, :github) do
           = "Sign up or Sign in with GitHub "
           i.fa.fa-github
