@@ -1,7 +1,7 @@
 defmodule Cazoc.Article do
   use Cazoc.Web, :model
 
-  alias Cazoc.{Author, Comment, Repository}
+  alias Cazoc.{Author, Comment}
 
   schema "articles" do
     field :body, :string
