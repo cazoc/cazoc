@@ -10,4 +10,4 @@ sudo apt-get install -y postgresql postgresql-contrib
 MIX_ENV=prod mix ecto.create
 
 sudo mkdir -p /app
-sudo chown ubuntu:ubuntu /app
+sudo chown -R ubuntu:ubuntu /app

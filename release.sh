@@ -8,3 +8,7 @@ mix deps.get --only prod
 mix compile
 mix phoenix.digest
 mix release
+
+# cd /app
+# tar the new release
+# sudo chown -R ubuntu:ubuntu /app
