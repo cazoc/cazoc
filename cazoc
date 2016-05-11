@@ -18,7 +18,7 @@ server{
     location @proxy {
         include proxy_params;
         proxy_redirect off;
-        proxy_pass http://cazoc.co;
+        proxy_pass http://cazoc;
         # The following two headers need to be set in order
         # to keep the websocket connection open. Otherwise you'll see
         # HTTP 400's being returned from websocket connections.
