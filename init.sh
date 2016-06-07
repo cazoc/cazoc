@@ -8,6 +8,9 @@ sudo apt-get install -y nodejs
 sudo npm install -g bower
 sudo apt-get install -y postgresql postgresql-contrib
 MIX_ENV=prod mix ecto.create
+sudo apt-get install inotify-tools
+sudo apt-get install ruby
+sudo gem install sass
 
 sudo mkdir -p /app
 sudo chown -R ubuntu:ubuntu /app

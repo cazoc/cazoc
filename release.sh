@@ -6,6 +6,7 @@ mix ecto.migrate
 mix clean
 mix deps.get --only prod
 mix compile
+mkdir priv/static
 mix phoenix.digest
 mix release
 
