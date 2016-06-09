@@ -1,14 +1,12 @@
-export MIX_ENV=prod
-
 npm install
 bower install
-mix ecto.migrate
-mix clean
+MIX_ENV=prod mix ecto.migrate
+MIX_ENV=prod mix clean
 mix deps.get --only prod
-mix compile
+MIX_ENV=prod mix compile
 mkdir priv/static
-mix phoenix.digest
-mix release
+MIX_ENV=prod mix phoenix.digest
+MIX_ENV=prod mix release
 
 # cd /app
 # tar the new release
