@@ -29,6 +29,7 @@ defmodule Cazoc.Mixfile do
                     :phoenix, :phoenix_ecto, :phoenix_html, :phoenix_slime, :phoenix_live_reload,
                     :postgrex,
                     :scrivener,
+                    :ssl,
                     :tentacat,
                     :timex,
                     :timex_ecto,
