@@ -7,13 +7,31 @@ upstream cazoc {
 #     default upgrade;
 #     '' close;
 # }
+
+server {
+  listen 80;
+  server_name cazoc.co;
+  return 301 https://$host$request_uri;
+}
+
 server{
-    listen 80;
+    listen 443 ssl;
     server_name .cazoc.co;
 
     location / {
         try_files $uri @proxy;
     }
+
+    ssl_certificate /etc/letsencrypt/live/cazoc.co/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cazoc.co/privkey.pem;
+
+    ssl on;
+    ssl_prefer_server_ciphers on;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDHE+RSAGCM:ECDH+AESGCM:
+    DH+AESGCM:ECDH+AES256:DH+AES256:
+    ECDH+AES128:DH+AES:
+    !EXPORT:!DES:!3DES:!MD5:!DSS;
 
     location @proxy {
         include proxy_params;
