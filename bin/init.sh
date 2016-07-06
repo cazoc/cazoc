@@ -14,8 +14,3 @@ sudo gem install sass
 
 sudo mkdir -p /app
 sudo chown -R ubuntu:ubuntu /app
-
-wget https://dl.eff.org/certbot-auto
-chmod a+x certbot-auto
-./certbot-auto
-./certbot-auto certonly
