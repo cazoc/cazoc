@@ -3,8 +3,8 @@ defmodule Cazoc.Mixfile do
 
   def project do
     [app: :cazoc,
-     version: "0.1.0",
-     elixir: "~> 1.2",
+     version: "0.2.0",
+     elixir: "~> 1.3",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -43,23 +43,23 @@ defmodule Cazoc.Mixfile do
   defp elixirc_paths(_),     do: ["lib", "web"]
 
   defp deps do
-    [{:phoenix, "~> 1.1"},
-     {:phoenix_ecto, "~> 2.0"},
+    [{:phoenix, "~> 1.2"},
+     {:phoenix_ecto, "~> 3.0"},
      {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.4"},
-     {:phoenix_slime, "~> 0.5"},
+     {:phoenix_html, "~> 2.6"},
+     {:phoenix_slime, "~> 0.7"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.10"},
      {:cowboy, "~> 1.0"},
-     {:comeonin, "~> 2.4"},
+     {:comeonin, "~> 2.5"},
      {:ecto, "~> 1.1 or ~> 2.0", [optional: false, hex: :ecto, manager: :mix, override: true]},
-     {:exrm, "~> 1.0.4"},
+     {:exrm, "~> 1.0"},
      {:ex_admin, github: "smpallen99/ex_admin"},
+     {:gettext, "~> 0.11"},
      {:git_cli, "~> 0.2"},
      {:pandex, "~> 0.1.0"},
      {:tentacat, "~> 0.5"},
-     {:timex, "~> 2.1"},
-     {:timex_ecto, "~> 1.0"},
+     {:timex, "~> 2.2"},
+     {:timex_ecto, "~> 1.1"},
      {:ueberauth, "~> 0.2"},
      {:ueberauth_github, "~> 0.2"}
     ]
