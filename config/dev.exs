@@ -34,6 +34,7 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
+config :cazoc, ecto_repos: [Cazoc.Repo]
 config :cazoc, Cazoc.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
