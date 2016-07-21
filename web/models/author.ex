@@ -46,7 +46,7 @@ defmodule Cazoc.Author do
   def changeset_auth(model, params \\ %{}) do
     model
     |> cast(params, @required_fields_auth ++ @optional_fields_auth)
-    |> validate_required(@required_fields)
+    |> validate_required(@required_fields_auth)
     |> unique_constraint(:name)
   end
 
