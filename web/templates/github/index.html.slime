@@ -7,6 +7,6 @@
           tbody
             = for family <- @families do
               tr
-                td = link family.model.name, to: family.model.repository.url
+                td = link family.data.name, to: family.data.repository.url
                 td
                   = render "form.html", changeset: family, action: github_path(@conn, :import)

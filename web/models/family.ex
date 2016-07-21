@@ -16,8 +16,8 @@ defmodule Cazoc.Family do
     timestamps
   end
 
-  @required_fields ~w(name display_name)
-  @optional_fields ~w(cover description)
+  @required_fields ~w(name display_name)a
+  @optional_fields ~w(cover description)a
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -25,9 +25,11 @@ defmodule Cazoc.Family do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
+    IO.inspect model
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> unique_constraint(:name, name: :families_name_author_id_index)
   end
 end

@@ -21,10 +21,10 @@ defmodule Cazoc.Author do
     timestamps
   end
 
-  @required_fields ~w(email name password)
-  @optional_fields ~w(display_name icon url password_tmp token ssh_key type)
-  @required_fields_auth ~w(name)
-  @optional_fields_auth ~w(email display_name icon url password password_tmp token ssh_key type)
+  @required_fields ~w(email name password)a
+  @optional_fields ~w(display_name icon url password_tmp token ssh_key type)a
+  @required_fields_auth ~w(name)a
+  @optional_fields_auth ~w(email display_name icon url password password_tmp token ssh_key type)a
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -32,9 +32,10 @@ defmodule Cazoc.Author do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> unique_constraint(:email)
     |> unique_constraint(:name)
     |> validate_format(:email, ~r/@/)
@@ -42,9 +43,10 @@ defmodule Cazoc.Author do
     |> validate_length(:name, min: 3)
   end
 
-  def changeset_auth(model, params \\ :empty) do
+  def changeset_auth(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields_auth, @optional_fields_auth)
+    |> cast(params, @required_fields_auth ++ @optional_fields_auth)
+    |> validate_required(@required_fields)
     |> unique_constraint(:name)
   end
 
