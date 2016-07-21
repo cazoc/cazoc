@@ -12,8 +12,8 @@ defmodule Cazoc.Service do
     timestamps
   end
 
-  @required_fields ~w(name token)
-  @optional_fields ~w(user)
+  @required_fields ~w(name token)a
+  @optional_fields ~w(user)a
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -21,9 +21,10 @@ defmodule Cazoc.Service do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
   end
 
   def insert_or_update({:ok, author} = result, %Ueberauth.Auth{} = auth) do
