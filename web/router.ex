@@ -13,6 +13,8 @@ defmodule Cazoc.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug :fetch_flash
   end
 
   # setup the ExAdmin routes
@@ -32,16 +34,16 @@ defmodule Cazoc.Router do
 
     get  "/register", RegistrationController, :new
     post "/register", RegistrationController, :create
-  end
-
-  scope "/", Cazoc do
-    pipe_through :browser # Use the default browser stack
-
-    get  "/search", SearchController, :index
 
     get  "/github", GithubController, :index
     post "/github", GithubController, :import
     delete "/github", GithubController, :delete
+
+    get  "/search", SearchController, :index
+  end
+
+  scope "/", Cazoc do
+    pipe_through :browser # Use the default browser stack
 
     resources "/authors", AuthorController
     resources "/articles", MyArticleController
