@@ -101,7 +101,8 @@ defmodule Cazoc.GithubController do
       |> Enum.map(&(elem(&1, 1)))
       |> Enum.join
       title = parse_title body, path
-      article_params = %{body: body, published_at: Timex.now, path: path, sha: content["sha"], title: title}
+      date = parse_date body, path
+      article_params = %{body: body, published_at: date, path: path, sha: content["sha"], title: title}
       article = Repo.get_by(Article, family_id: family.id, path: path)
       if is_nil(article), do: article = %Article{author_id: author.id, family_id: family.id}
       Article.changeset(article, article_params)
@@ -114,9 +115,19 @@ defmodule Cazoc.GithubController do
   defp parse_title(body, path) do
     default = "Title"
     pattern = title_pattern Article.format(path)
-    if pattern do
-      captured = Regex.named_captures(pattern, body, capture: :first)
-      if captured, do: captured["title"], else: default
+    captured = Regex.named_captures(pattern, body, capture: :first)
+    if captured, do: captured["title"], else: default
+  end
+
+  defp parse_date(body, path) do
+    default = Timex.now
+    pattern = date_pattern Article.format(path)
+    captured = Regex.named_captures(pattern, body, capture: :first)
+    if captured do
+      case Timex.parse(captured["date"], "{YYYY}-{M}-{D}") do
+        {:ok, date} -> date
+        {:error, _} -> default
+      end
     else
       default
     end
@@ -126,6 +137,14 @@ defmodule Cazoc.GithubController do
     case format do
       :org -> ~r/#\+title: (?<title>[^\n]+)/i
       :md -> ~r/^% (?<title>[^\n]+)/
+      :other -> nil
+    end
+  end
+
+  defp date_pattern(format) do
+    case format do
+      :org -> ~r/#\+date: (?<date>[^\n]+)/i
+      :md -> ~r/^% (?<date>[^\n]+)/
       :other -> nil
     end
   end
