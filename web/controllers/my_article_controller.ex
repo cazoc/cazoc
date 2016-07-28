@@ -1,8 +1,7 @@
 defmodule Cazoc.MyArticleController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.{Article, Author, Session, Repository}
-  alias Timex.{Date, DateFormat}
+  alias Cazoc.{Article, Author, Session}
 
   plug :scrub_params, "article" when action in [:create, :update]
 
@@ -20,9 +19,9 @@ defmodule Cazoc.MyArticleController do
   end
 
   def create(conn, %{"article" => article_params}) do
-    now = Date.now
+    now = Timex.now
     author = Session.current_author(conn)
-    dir_name = now |> DateFormat.format!("%Y%m%d%H%M%S", :strftime)
+    dir_name = now |> Timex.format!("%Y%m%d%H%M%S", :strftime)
     path = author |> Author.path |> Path.join(dir_name)
     article = %Article{author_id: author.id, published_at: now}
     changeset = Article.changeset(article, article_params)
@@ -31,7 +30,7 @@ defmodule Cazoc.MyArticleController do
       do: {:ok, repo}
 
     case result do
-      {:ok, repository} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Article created successfully.")
         |> redirect(to: my_article_path(conn, :index))
