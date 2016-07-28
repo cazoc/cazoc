@@ -27,7 +27,7 @@ defmodule Cazoc.Service do
     |> validate_required(@required_fields)
   end
 
-  def insert_or_update({:ok, author} = result, %Ueberauth.Auth{} = auth) do
+  def insert_or_update({:ok, author}, %Ueberauth.Auth{} = auth) do
     params = %{name: auth.provider |> Atom.to_string,
                token: auth.credentials.token}
     case Repo.get_by(Service, %{name: auth.provider |> Atom.to_string, author_id: author.id}) do

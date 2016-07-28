@@ -58,9 +58,9 @@ defmodule Cazoc.Mixfile do
      {:git_cli, "~> 0.2"},
      {:pandex, "~> 0.1.0"},
      {:tentacat, "~> 0.5"},
-     {:timex, "~> 2.2"},
-     {:timex_ecto, "~> 1.1"},
-     {:ueberauth, "~> 0.2"},
+     {:timex, "~> 3.0"},
+     {:timex_ecto, "~> 3.0"},
+     {:ueberauth, "~> 0.3"},
      {:ueberauth_github, "~> 0.2"}
     ]
   end
