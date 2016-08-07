@@ -1,8 +1,6 @@
 defmodule Cazoc.CommentController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.Comment
-
   plug :scrub_params, "comment" when action in [:create, :update]
 
   def index(conn, _params) do

@@ -1,13 +1,12 @@
 defmodule Cazoc.Service do
   use Cazoc.Web, :model
-  alias Cazoc.{Author, Repo, Service}
 
   schema "services" do
     field :name, :string
     field :user, :string
     field :token, :string
 
-    belongs_to :author, Cazoc.Author
+    belongs_to :author, Author
 
     timestamps
   end

@@ -1,8 +1,6 @@
 defmodule Cazoc.RepositoryController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.Repository
-
   plug :scrub_params, "repository" when action in [:create, :update]
 
   def index(conn, _params) do

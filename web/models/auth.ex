@@ -1,5 +1,5 @@
 defmodule Cazoc.Auth do
-  alias Cazoc.{Author, Repo, Service}
+  use Cazoc.Web, :model
 
   def insert_or_update(%Ueberauth.Auth{} = auth) do
     name = name_from_auth(auth)

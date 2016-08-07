@@ -1,8 +1,6 @@
 defmodule Cazoc.SessionController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.Session
-
   @doc """
   Login form
   """

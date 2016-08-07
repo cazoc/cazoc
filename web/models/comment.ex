@@ -3,8 +3,8 @@ defmodule Cazoc.Comment do
 
   schema "comments" do
     field :message, :string
-    belongs_to :article, Cazoc.Article
-    belongs_to :author, Cazoc.Author
+    belongs_to :article, Article
+    belongs_to :author, Author
 
     timestamps
   end

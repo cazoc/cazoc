@@ -1,8 +1,6 @@
 defmodule Cazoc.MyArticleController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.{Article, Author, Session}
-
   plug :scrub_params, "article" when action in [:create, :update]
 
   def index(conn, _params) do

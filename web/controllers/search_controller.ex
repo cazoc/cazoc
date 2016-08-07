@@ -1,8 +1,6 @@
 defmodule Cazoc.SearchController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.Article
-
   def index(conn, %{"search" => search_params}) do
     keywords = search_params["keyword"]
     articles = Repo.all from article in Article,

@@ -1,8 +1,6 @@
 defmodule Cazoc.ServiceController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.Service
-
   plug :scrub_params, "service" when action in [:create, :update]
 
   def index(conn, _params) do

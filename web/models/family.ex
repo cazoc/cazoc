@@ -1,8 +1,6 @@
 defmodule Cazoc.Family do
   use Cazoc.Web, :model
 
-  alias Cazoc.{Article, Author, Collaborator, Repository}
-
   schema "families" do
     field :name, :string
     field :display_name, :string
@@ -26,7 +24,6 @@ defmodule Cazoc.Family do
   with no validation performed.
   """
   def changeset(model, params \\ %{}) do
-    IO.inspect model
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)

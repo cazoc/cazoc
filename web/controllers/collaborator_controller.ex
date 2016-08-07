@@ -1,8 +1,6 @@
 defmodule Cazoc.CollaboratorController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.Collaborator
-
   plug :scrub_params, "collaborator" when action in [:create, :update]
 
   def index(conn, _params) do

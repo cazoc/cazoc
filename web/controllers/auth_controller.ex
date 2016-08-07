@@ -2,7 +2,6 @@ defmodule Cazoc.AuthController do
   use Cazoc.Web, :controller
   plug Ueberauth
 
-  alias Cazoc.Auth
   alias Ueberauth.Strategy.Helpers
 
   def request(conn, _params) do

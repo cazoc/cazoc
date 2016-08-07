@@ -1,6 +1,5 @@
 defmodule Cazoc.RegistrationController do
   use Cazoc.Web, :controller
-  alias Cazoc.Author
 
   @doc """
   Author registration

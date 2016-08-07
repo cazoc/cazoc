@@ -20,6 +20,9 @@ defmodule Cazoc.Web do
     quote do
       use Ecto.Schema
       use Timex.Ecto.Timestamps
+
+      alias Cazoc.Repo
+      alias Cazoc.{Article, Auth, Author, Collaborator, Comment, Family, Repository, Service, Session}
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
@@ -31,6 +34,7 @@ defmodule Cazoc.Web do
       use Phoenix.Controller
 
       alias Cazoc.Repo
+      alias Cazoc.{Article, Auth, Author, Collaborator, Comment, Family, Repository, Service, Session}
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 

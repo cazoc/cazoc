@@ -2,8 +2,8 @@ defmodule Cazoc.Collaborator do
   use Cazoc.Web, :model
 
   schema "collaborators" do
-    belongs_to :family, Cazoc.Family
-    belongs_to :author, Cazoc.Author
+    belongs_to :family, Family
+    belongs_to :author, Author
 
     timestamps
   end

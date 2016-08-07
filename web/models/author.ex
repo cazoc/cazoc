@@ -1,8 +1,6 @@
 defmodule Cazoc.Author do
   use Cazoc.Web, :model
 
-  alias Cazoc.{Article, Family, Repo, Service}
-
   schema "authors" do
     field :name, :string, null: false, uique: true
     field :display_name, :string

@@ -1,8 +1,6 @@
 defmodule Cazoc.MyFamilyController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.{Family, Session}
-
   plug :scrub_params, "family" when action in [:create, :update]
 
   def index(conn, _params) do
@@ -10,7 +8,9 @@ defmodule Cazoc.MyFamilyController do
       join: author in assoc(family, :author),
       where: author.id == ^Session.current_author(conn).id,
       preload: [author: author]
-    families = families |> Repo.preload(:articles) |> Repo.preload(:repository) |> Repo.preload(:collaborators)
+    families =
+      families
+      |> Repo.preload(:articles) |> Repo.preload(:repository) |> Repo.preload(:collaborators)
     render(conn, :index, families: families)
   end
 
@@ -33,11 +33,12 @@ defmodule Cazoc.MyFamilyController do
   end
 
   def show(conn, %{"id" => id}) do
-    family = Repo.get!(Family, id)
-    |> Repo.preload(:author)
-    |> Repo.preload(:articles)
-    |> Repo.preload(:repository)
-    |> Repo.preload(:collaborators)
+    family =
+      Repo.get!(Family, id)
+      |> Repo.preload(:author)
+      |> Repo.preload(:articles)
+      |> Repo.preload(:repository)
+      |> Repo.preload(:collaborators)
     render(conn, :show, family: family)
   end
 

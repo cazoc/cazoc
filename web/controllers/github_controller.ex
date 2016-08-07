@@ -1,8 +1,6 @@
 defmodule Cazoc.GithubController do
   use Cazoc.Web, :controller
 
-  alias Cazoc.{Article, Author, Family, Repository, Session}
-
   def index(conn, _params) do
     author = Session.current_author(conn)
     client = Tentacat.Client.new(%{access_token: Author.token_github(author)})

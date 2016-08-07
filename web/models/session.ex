@@ -1,5 +1,5 @@
 defmodule Cazoc.Session do
-  alias Cazoc.Author
+  use Cazoc.Web, :model
 
   @doc """
   Login
@@ -24,7 +24,7 @@ defmodule Cazoc.Session do
   """
   def current_author(conn) do
     id = Plug.Conn.get_session(conn, :current_author)
-    if id, do: Cazoc.Repo.get(Author, id)
+    if id, do: Repo.get(Author, id)
   end
 
   @doc """
