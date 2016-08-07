@@ -34,7 +34,7 @@ defmodule Cazoc.Article do
   end
 
   def formated_publised_at(model) do
-    model.published_at |> Timex.format!("%Y/%m/%d %H:%M", :strftime)
+    model.published_at |> Timex.format!("%Y/%m/%d", :strftime)
   end
 
   @doc """
