@@ -34,6 +34,7 @@ defmodule Cazoc.Mixfile do
                     :timex,
                     :timex_ecto,
                     :tzdata,
+                    :secure_random,
                     :ueberauth,
                     :ueberauth_github]]
   end
@@ -60,6 +61,7 @@ defmodule Cazoc.Mixfile do
      {:tentacat, "~> 0.5"},
      {:timex, "~> 3.0"},
      {:timex_ecto, "~> 3.0"},
+     {:secure_random, "~> 0.5"},
      {:ueberauth, "~> 0.3"},
      {:ueberauth_github, "~> 0.2"}
     ]
