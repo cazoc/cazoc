@@ -103,9 +103,11 @@ defmodule Cazoc.GithubController do
       title = parse_title body, path
       date = parse_date body, path
       article_params = %{body: body, published_at: date, path: path, sha: content["sha"], title: title}
-      article = Repo.get_by(Article, family_id: family.id, path: path)
-      if is_nil(article), do: article = %Article{author_id: author.id, family_id: family.id}
-      Article.changeset(article, article_params)
+      case Repo.get_by(Article, family_id: family.id, path: path) do
+        nil ->  %Article{author_id: author.id, family_id: family.id, uuid: generate_uuid()}
+        article -> article
+      end
+      |> Article.changeset(article_params)
       |> Repo.insert_or_update
     else
       {:error, path}
@@ -155,5 +157,13 @@ defmodule Cazoc.GithubController do
 
   defp is_valid_file(file) do
     file["type"] == "blob" and Article.is_valid_format(file["path"])
+  end
+
+  defp generate_uuid() do
+    uuid = SecureRandom.hex(16)
+    case Repo.get_by(Article, uuid: uuid) do
+      nil -> uuid
+      _ -> generate_uuid()
+    end
   end
 end

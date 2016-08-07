@@ -1,14 +1,13 @@
 defmodule Cazoc.Article do
   use Cazoc.Web, :model
 
-  alias Cazoc.{Author, Comment}
-
   schema "articles" do
     field :body, :string
     field :title, :string
     field :cover, :string
     field :path, :string
     field :sha, :string
+    field :uuid, :string
     field :published_at, Timex.Ecto.DateTime
     belongs_to :author, Author
     belongs_to :family, Family
@@ -17,7 +16,7 @@ defmodule Cazoc.Article do
     timestamps
   end
 
-  @required_fields ~w(path published_at sha)a
+  @required_fields ~w(path published_at sha uuid)a
   @optional_fields ~w(body cover title)a
 
   @doc """
@@ -33,8 +32,12 @@ defmodule Cazoc.Article do
     |> unique_constraint(:path, name: :articles_path_family_id_index)
   end
 
+  @doc """
+  Formmatted string of published_at
+  """
   def formated_publised_at(model) do
-    model.published_at |> Timex.format!("%Y/%m/%d", :strftime)
+    model.published_at
+    |> Timex.format!("%Y/%m/%d", :strftime)
   end
 
   @doc """
@@ -48,6 +51,9 @@ defmodule Cazoc.Article do
     end
   end
 
+  @doc """
+  File format type
+  """
   def format(path) do
     cond do
       path =~ ~r/.+\.org$/ -> :org
