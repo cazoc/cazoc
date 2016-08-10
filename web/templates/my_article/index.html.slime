@@ -8,6 +8,6 @@
             = for article <- @articles do
               tr
                 td.subtitle = article |> Cazoc.Article.formated_publised_at
-                td = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
+                td = link article.title, to: my_article_path(@conn, :show, article.uuid), class: "btn btn-default btn-xs"
 
       = link "New article", to: my_article_path(@conn, :new)

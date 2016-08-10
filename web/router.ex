@@ -46,7 +46,8 @@ defmodule Cazoc.Router do
     pipe_through :browser # Use the default browser stack
 
     resources "/authors", AuthorController
-    resources "/articles", MyArticleController
+    resources "/articles", MyArticleController, except: [:show]
+    get  "/articles/:uuid", MyArticleController, :show
     resources "/collaborators", CollaboratorController
     resources "/comments", CommentController
     resources "/families", MyFamilyController

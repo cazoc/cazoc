@@ -158,7 +158,7 @@ defmodule Cazoc.GithubController do
   end
 
   defp generate_uuid() do
-    uuid = SecureRandom.hex(16)
+    uuid = SecureRandom.urlsafe_base64(8)
     case Repo.get_by(Article, uuid: uuid) do
       nil -> uuid
       _ -> generate_uuid()

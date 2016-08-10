@@ -39,8 +39,10 @@ defmodule Cazoc.MyArticleController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    article = Repo.get!(Article, id) |> Repo.preload(:author)
+  def show(conn, %{"uuid" => uuid}) do
+    article =
+      Repo.get_by(Article, uuid: uuid)
+      |> Repo.preload(:author)
     result = Article.html_body article
     case result do
       {:ok, body} ->
