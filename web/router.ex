@@ -50,7 +50,8 @@ defmodule Cazoc.Router do
     get  "/articles/:uuid", MyArticleController, :show
     resources "/collaborators", CollaboratorController
     resources "/comments", CommentController
-    resources "/families", MyFamilyController
+    resources "/families", MyFamilyController, except: [:show]
+    get  "/families/:name", MyFamilyController, :show
     resources "/repositories", RepositoryController
     resources "/services", ServiceController
   end

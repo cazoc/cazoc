@@ -7,7 +7,7 @@
           tbody
             = for family <- @families do
               tr
-                td = link family.name, to: my_family_path(@conn, :show, family), class: "btn btn-default btn-xs"
+                td = link family.name, to: my_family_path(@conn, :show, family.name), class: "btn btn-default btn-xs"
                 td = link "Source", to: family.repository.source
 
       = link "Import a new repository", to: github_path(@conn, :index)

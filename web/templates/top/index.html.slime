@@ -19,7 +19,7 @@
               tbody
                 = for family <- @families do
                   tr
-                    td = link family.name, to: my_family_path(@conn, :show, family), class: "btn btn-default btn-xs"
+                    td = link family.name, to: my_family_path(@conn, :show, family.name), class: "btn btn-default btn-xs"
         - else
           = link "Import exisiting repositories from GitHub.", to: github_path(@conn, :index)
 
