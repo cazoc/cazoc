@@ -4,7 +4,7 @@ defmodule Cazoc.Mixfile do
   def project do
     [app: :cazoc,
      version: "0.2.1",
-     elixir: "~> 1.3",
+     elixir: "~> 1.3.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -44,8 +44,8 @@ defmodule Cazoc.Mixfile do
   defp elixirc_paths(_),     do: ["lib", "web"]
 
   defp deps do
-    [{:phoenix, "~> 1.2"},
-     {:phoenix_ecto, "~> 3.0"},
+    [{:phoenix, "~> 1.2.1"},
+     {:phoenix_ecto, "~> 3.0.1"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_slime, "~> 0.7"},
