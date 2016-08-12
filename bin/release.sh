@@ -1,8 +1,8 @@
 npm install
 bower install
+mix deps.get --only prod
 MIX_ENV=prod mix ecto.migrate
 MIX_ENV=prod mix clean
-mix deps.get --only prod
 MIX_ENV=prod mix compile
 mkdir priv/static
 MIX_ENV=prod mix phoenix.digest
