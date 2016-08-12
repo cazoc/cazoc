@@ -14,6 +14,9 @@ config :cazoc, Cazoc.Endpoint,
   pubsub: [name: Cazoc.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+# Configure for ecto repo
+config :cazoc, ecto_repos: [Cazoc.Repo]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
