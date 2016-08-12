@@ -7,7 +7,6 @@
         = link to: auth_path(@conn, :request, :github) do
           = "Sign up or Sign in with GitHub "
           i.fa.fa-github
-        end
 
   .container
     .col-lg-12.p-t-1
@@ -19,7 +18,7 @@
               tbody
                 = for family <- @families do
                   tr
-                    td = link family.name, to: my_family_path(@conn, :show, family.name), class: "btn btn-default btn-xs"
+                    td = link family.name, to: my_family_path(@conn, :show, family.author.name, family.name), class: "btn btn-default btn-xs"
         - else
           = link "Import exisiting repositories from GitHub.", to: github_path(@conn, :index)
 

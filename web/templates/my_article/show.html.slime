@@ -6,7 +6,7 @@
       img.m-l-1.author-icon.img-circle src="#{@article.author.icon}" alt="author icon"
       aside.m-r-1
         = Cazoc.Article.formated_publised_at @article
-      = if Cazoc.Session.is_owner(@conn, @article.author) do
+      = if owner?(@conn, @article.author) do
         = link "Edit", to: my_article_path(@conn, :edit, @article)
 
   .container

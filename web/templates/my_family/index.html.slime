@@ -1,15 +1,16 @@
 .myfamilies
   .container
     .col-lg-12.p-t-1
-      h5 Your families
+      h5 Families
       .table-responsive
         table.table.table-striped.families
           tbody
             = for family <- @families do
               tr
-                td = link family.name, to: my_family_path(@conn, :show, family.name), class: "btn btn-default btn-xs"
+                td = link family.name, to: my_family_path(@conn, :show, family.author.name, family.name), class: "btn btn-default btn-xs"
                 td = link "Source", to: family.repository.source
-                = if Cazoc.Session.is_owner(@conn, family.author) do
+                = if owner?(@conn, family.author) do
                   td = link "Delete", to: my_family_path(@conn, :delete, family), method: :delete, data: [confirm: "Are you sure to delete the family?"]
 
-      = link "Import a new repository", to: github_path(@conn, :index)
+      = if logged_in?(@conn) do
+        = link "Import a new repository", to: github_path(@conn, :index)

@@ -30,7 +30,7 @@ defmodule Cazoc.Session do
   @doc """
   Check owner
   """
-  def is_owner(conn, author) do
+  def owner?(conn, author) do
     current_author(conn) == author
   end
 

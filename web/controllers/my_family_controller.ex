@@ -32,9 +32,10 @@ defmodule Cazoc.MyFamilyController do
     end
   end
 
-  def show(conn, %{"name" => name}) do
+  def show(conn, %{"author" => author_name, "name" => name}) do
+    author = Repo.get_by(Author, name: author_name)
     family =
-      Repo.get_by(Family, name: name)
+      Repo.get_by(Family, author_id: author.id, name: name)
       |> Repo.preload([:author, :articles, :repository, :collaborators])
     render(conn, :show, family: family, changeset: Family.changeset(family))
   end

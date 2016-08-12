@@ -17,6 +17,15 @@ defmodule Cazoc.Router do
     plug :fetch_flash
   end
 
+  scope "/auth", Cazoc do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+    post "/:provider/callback", AuthController, :callback
+    delete "/logout", AuthController, :delete
+  end
+
   # setup the ExAdmin routes
   scope "/admin", ExAdmin do
     pipe_through :browser
@@ -51,18 +60,9 @@ defmodule Cazoc.Router do
     resources "/collaborators", CollaboratorController
     resources "/comments", CommentController
     resources "/families", MyFamilyController, except: [:show]
-    get  "/families/:name", MyFamilyController, :show
+    get  "/:author/:name", MyFamilyController, :show
     resources "/repositories", RepositoryController
     resources "/services", ServiceController
-  end
-
-  scope "/auth", Cazoc do
-    pipe_through :browser
-
-    get "/:provider", AuthController, :request
-    get "/:provider/callback", AuthController, :callback
-    post "/:provider/callback", AuthController, :callback
-    delete "/logout", AuthController, :delete
   end
 
   scope "/api", Cazoc do

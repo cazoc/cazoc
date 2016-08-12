@@ -35,7 +35,7 @@ defmodule Cazoc.GithubController do
           end
         conn
         |> put_flash(:info, message)
-        |> redirect(to: my_article_path(conn, :index))
+        |> redirect(to: my_family_path(conn, :show, author.name, family_params["name"]))
       {:error, _} ->
         conn
         |> put_flash(:info, "Failed to sync repository.")

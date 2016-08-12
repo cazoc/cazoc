@@ -57,7 +57,8 @@ defmodule Cazoc.Web do
       import Cazoc.ErrorHelpers
       import Cazoc.Gettext
 
-      import Cazoc.Session, only: [current_author: 1, logged_in?: 1]
+      import Cazoc.Session, only: [current_author: 1, logged_in?: 1, owner?: 2]
+      import Cazoc.Article, only: [formated_publised_at: 1]
     end
   end
 
