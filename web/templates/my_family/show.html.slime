@@ -7,7 +7,6 @@
         = @family.name
         = link to: @family.repository.source do
           i.m-l-1.fa.fa-github
-        = render "refresh.html", changeset: @changeset, action: github_path(@conn, :import)
       p.description = @family.description
 
       h5.m-t-3 Articles
