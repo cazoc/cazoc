@@ -13,7 +13,7 @@ defmodule Cazoc.Author do
     field :ssh_key, :string
     field :type, :integer, defaults: 0
     has_many :articles, Article, on_delete: :nothing
-    has_many :families, Family, on_delete: :delete_all
+    has_many :families, Family, on_delete: :nothing
     has_many :services, Service, on_delete: :delete_all
 
     timestamps

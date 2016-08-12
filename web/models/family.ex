@@ -8,8 +8,8 @@ defmodule Cazoc.Family do
     field :cover, :string
     belongs_to :author, Author
     belongs_to :repository, Repository
-    has_many :articles, Article
-    has_many :collaborators, Collaborator
+    has_many :articles, Article, on_delete: :delete_all
+    has_many :collaborators, Collaborator, on_delete: :nothing
 
     timestamps
   end

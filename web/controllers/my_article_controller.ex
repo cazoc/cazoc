@@ -77,12 +77,12 @@ defmodule Cazoc.MyArticleController do
   end
 
   def delete(conn, %{"id" => id}) do
-    article = Repo.get!(Article, id)
+    article = Repo.get!(Article, id) |> Repo.preload(:family)
     Repo.delete!(article)
 
     conn
     |> put_flash(:info, "Article deleted successfully.")
-    |> redirect(to: my_article_path(conn, :index))
+    |> redirect(to: my_family_path(conn, :show, article.family.name))
   end
 
   defp init_and_commit(path, article) do

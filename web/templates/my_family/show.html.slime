@@ -1,16 +1,24 @@
 .myfamily
   .container
     .col-lg-12.p-t-1
-      h5 = @family.name
+      h5
+        = @family.author.name
+        = " / "
+        = @family.name
         = link to: @family.repository.source do
           i.m-l-1.fa.fa-github
         end
-        = @family.description
+      p.description = @family.description
+
       h5.m-t-3 Articles
-        .table-responsive
-          table.table.table-striped.articles
-            tbody
-              = for article <- @family.articles do
-                tr
-                  td.subtitle = article |> Cazoc.Article.formated_publised_at
-                  td = link article.title, to: my_article_path(@conn, :show, article.uuid), class: "btn btn-default btn-xs"
+      .table-responsive
+        table.table.table-striped.articles
+          tbody
+            = for article <- @family.articles do
+              tr
+                td.subtitle = article |> Cazoc.Article.formated_publised_at
+                td = link article.title, to: my_article_path(@conn, :show, article.uuid), class: "btn btn-default btn-xs"
+                = if Cazoc.Session.is_owner(@conn, @family.author) do
+                  td
+                    = link to: my_article_path(@conn, :delete, article), method: :delete, data: [confirm: "Are you sure to delete the article?"] do
+                      i.m-l-1.fa.fa-trash
