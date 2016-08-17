@@ -26,7 +26,7 @@ defmodule Cazoc.Mixfile do
                     :git_cli,
                     :logger,
                     :pandex,
-                    :phoenix, :phoenix_ecto, :phoenix_html, :phoenix_slime, :phoenix_live_reload,
+                    :phoenix, :phoenix_ecto, :phoenix_html, :phoenix_slime,
                     :postgrex,
                     :scrivener,
                     :ssl,
