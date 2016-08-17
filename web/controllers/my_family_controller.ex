@@ -50,11 +50,12 @@ defmodule Cazoc.MyFamilyController do
     family = Repo.get!(Family, id)
     changeset = Family.changeset(family, family_params)
 
+    author = Session.current_author(conn)
     case Repo.update(changeset) do
       {:ok, family} ->
         conn
         |> put_flash(:info, "Family updated successfully.")
-        |> redirect(to: my_family_path(conn, :show, family))
+        |> redirect(to: my_family_path(conn, :show, author.name, family.name))
       {:error, changeset} ->
         render(conn, "edit.html", family: family, changeset: changeset)
     end
