@@ -21,7 +21,7 @@ html lang="en"
             a.dropdown-toggle data-toggle="dropdown" href="#" type="button" aria-haspopup="true" aria-expanded="false"
               img.author-icon.img-circle src="#{current_author(@conn).icon}" alt="author icon"
             ul.dropdown-menu.dropdown-menu-right.global_menu
-              li.dropdown-header = current_author(@conn).name
+              li.dropdown-header = current_author(@conn).display_name
               li.dropdown-divider
               li.dropdown-item = link "Families", to: my_family_path(@conn, :index)
               li.dropdown-item = link "Import", to: github_path(@conn, :index)

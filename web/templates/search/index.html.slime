@@ -7,4 +7,4 @@
         tr
           td.subtitle = article |> Cazoc.Article.formated_publised_at
           td = link article.title, to: my_article_path(@conn, :show, article), class: "btn btn-default btn-xs"
-          td = article.author.name
+          td = article.author.display_name

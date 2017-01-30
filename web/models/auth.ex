@@ -2,9 +2,10 @@ defmodule Cazoc.Auth do
   use Cazoc.Web, :model
 
   def insert_or_update(%Ueberauth.Auth{} = auth) do
-    name = name_from_auth(auth)
+    display_name = display_name_from_auth(auth)
+    name = auth.info.nickname
     params = %{email: auth.info.email,
-               display_name: auth.info.nickname,
+               display_name: display_name,
                icon: auth.info.urls.avatar_url,
                url: auth.info.urls.blog}
     case Repo.get_by(Author, name: name) do
@@ -16,7 +17,7 @@ defmodule Cazoc.Auth do
     |> Service.insert_or_update(auth)
   end
 
-  defp name_from_auth(auth) do
+  defp display_name_from_auth(auth) do
     if auth.info.name do
       auth.info.name
     else
