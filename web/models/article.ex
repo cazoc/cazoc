@@ -46,7 +46,7 @@ defmodule Cazoc.Article do
   def html_body(model) do
     case format(model.path) do
       :org -> Pandex.convert_string model.body, "org"
-      :md -> Pandex.convert_string model.body
+      :md -> Pandex.convert_string model.body, "markdown_github"
       :other -> model.body
     end
   end
