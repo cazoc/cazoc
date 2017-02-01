@@ -11,7 +11,7 @@ defmodule Cazoc.Family do
     has_many :articles, Article, on_delete: :delete_all
     has_many :collaborators, Collaborator, on_delete: :nothing
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(name display_name)a

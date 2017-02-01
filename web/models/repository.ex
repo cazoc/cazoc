@@ -6,7 +6,7 @@ defmodule Cazoc.Repository do
     field :source, :string
     field :url, :string
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(path)a

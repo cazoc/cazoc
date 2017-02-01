@@ -5,7 +5,7 @@ defmodule Cazoc.Collaborator do
     belongs_to :family, Family
     belongs_to :author, Author
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w()a

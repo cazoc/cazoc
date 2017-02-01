@@ -43,6 +43,7 @@ config :ueberauth, Ueberauth,
 config :ex_admin,
   repo: Cazoc.Repo,
   module: Cazoc,
+  theme: ExAdmin.Theme.ActiveAdmin,
   modules: [
     Cazoc.ExAdmin.Dashboard,
     Cazoc.ExAdmin.Article,

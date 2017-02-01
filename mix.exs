@@ -3,14 +3,14 @@ defmodule Cazoc.Mixfile do
 
   def project do
     [app: :cazoc,
-     version: "0.2.1",
-     elixir: "~> 1.3.2",
+     version: "0.3.0",
+     elixir: "~> 1.4.1",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     aliases: aliases,
-     deps: deps]
+     aliases: aliases(),
+     deps: deps()]
   end
 
   # Configuration for the OTP application.
@@ -45,13 +45,13 @@ defmodule Cazoc.Mixfile do
 
   defp deps do
     [{:phoenix, "~> 1.2.1"},
-     {:phoenix_ecto, "~> 3.0.1"},
+     {:phoenix_ecto, "~> 3.2"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_slime, "~> 0.7"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:comeonin, "~> 2.5"},
+     {:comeonin, "~> 3.0"},
      {:ecto, "~> 1.1 or ~> 2.0", [optional: false, hex: :ecto, manager: :mix, override: true]},
      {:exrm, "~> 1.0"},
      {:ex_admin, github: "smpallen99/ex_admin"},

@@ -8,7 +8,7 @@ defmodule Cazoc.Service do
 
     belongs_to :author, Author
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(name token)a
