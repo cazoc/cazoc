@@ -6,7 +6,7 @@ defmodule Cazoc.Comment do
     belongs_to :article, Article
     belongs_to :author, Author
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(message)a

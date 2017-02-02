@@ -13,7 +13,7 @@ defmodule Cazoc.Article do
     belongs_to :family, Family
     has_many :comments, Comment, on_delete: :delete_all
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(path published_at sha uuid)a

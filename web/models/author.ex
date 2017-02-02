@@ -16,7 +16,7 @@ defmodule Cazoc.Author do
     has_many :families, Family, on_delete: :nothing
     has_many :services, Service, on_delete: :delete_all
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(email name password)a
